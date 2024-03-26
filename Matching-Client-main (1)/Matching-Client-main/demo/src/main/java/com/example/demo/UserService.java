@@ -28,7 +28,7 @@ public class UserService {
     //erstellt neue json Datei mit 10 Usern anstatt alte Datei zu verwenden
     @PostConstruct
     public void writetoJSON() {
-        File file = new File("users.JSON");
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
         // Check if the file exists and is not empty
