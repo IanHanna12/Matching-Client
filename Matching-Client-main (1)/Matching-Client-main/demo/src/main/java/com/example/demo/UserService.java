@@ -1,7 +1,6 @@
-
 package com.example.demo;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.example.demo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -24,38 +23,24 @@ public class UserService {
         return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100));
     }
 
-
-    //erstellt neue json Datei mit 10 Usern anstatt alte Datei zu verwenden
     @PostConstruct
     public void writetoJSON() {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
-        // Check if the file exists and is not empty
         if (file.exists() && file.length() != 0) {
             try {
-                // Try to read the file content
-                List<User> existingUsers = mapper.readValue(file, new TypeReference<List<User>>() {});
-                if (!existingUsers.isEmpty()) {
-                    // If the file is not empty, do not write to it
-                    return;
+                List<User> users = new ArrayList<>();
+                for (int i = 0; i <= 100; i++) {
+                    users.add(generateRandomUser());
                 }
+                mapper.writeValue(file, users);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
-
-        // If the file does not exist or is empty, write to it
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            users.add(generateRandomUser());
-        }
-        try {
-            mapper.writeValue(file, users);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
+
     public List<User> getmatchedUsers() {
         List<User> matcheduserList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
