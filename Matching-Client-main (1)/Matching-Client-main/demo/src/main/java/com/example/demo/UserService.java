@@ -44,7 +44,8 @@ public class UserService {
     }
 
     @PostConstruct
-    public void readUsersfromJSON(ObjectMapper  mapper) {
+    public void readUsersfromJSON() {
+        ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         if (file.exists() && file.length() != 0) {
             try {
@@ -57,7 +58,7 @@ public class UserService {
         }
     }
 
-    public void WritematchedUserstoJSON(ObjectMapper  mapper) {
+    public void WritematchedUserstoJSON(ObjectMapper mapper) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
         if (file.exists() && file.length() == 0) {
@@ -72,7 +73,7 @@ public class UserService {
         }
     }
 
-    public void ReadmatchedUsersfromJSON(ObjectMapper  mapper) {
+    public void ReadmatchedUsersfromJSON(ObjectMapper mapper) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
 
