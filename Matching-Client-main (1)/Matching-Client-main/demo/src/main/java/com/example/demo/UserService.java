@@ -13,6 +13,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class UserService {
+
+    boolean isExecuted;
     private final List<User> userList;
 
     public UserService(List<User> userList) {
@@ -35,6 +37,7 @@ public class UserService {
                     users.add(generateRandomUser());
                 }
                 mapper.writeValue(file, users);
+                isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
