@@ -8,6 +8,12 @@ public class User {
     @JsonProperty
     private String ID;
 
+
+    //Konsruktor without parameters
+    public User() {}
+
+
+    //Konstruktor with parameters
     public User(String name, String ID) {
         this.name = name;
         this.ID = ID;
