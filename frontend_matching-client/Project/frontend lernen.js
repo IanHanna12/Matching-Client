@@ -1,7 +1,9 @@
 <html>
 <body>
 
-<p id="demo"></p>
+<p id="demo">
+
+</p>
 
 <script>
   document.getElementById("A").innerHTML = "Hello World!";
