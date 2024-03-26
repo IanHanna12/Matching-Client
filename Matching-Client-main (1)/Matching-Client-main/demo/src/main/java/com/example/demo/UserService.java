@@ -44,10 +44,17 @@ public class UserService {
         }
     }
 
+
     public List<User> getmatchedUsers() {
         List<User> matcheduserList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            matcheduserList.add(generateRandomUser());
+        List<User> users = new ArrayList<>(userList);
+        if (users.size() < 2) {
+            throw new IllegalStateException("Not enough users to match");
+        }
+        while (matcheduserList.size() == 1) {
+            int randomIndex = ThreadLocalRandom.current().nextInt(users.size());
+            matcheduserList.add(users.get(randomIndex));
+            users.remove(randomIndex);
         }
         return matcheduserList;
     }
