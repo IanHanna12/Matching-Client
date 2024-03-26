@@ -25,7 +25,7 @@ public class UserService {
     }
 
     @PostConstruct
-    public void writetoJSON() {
+    public void writeUserstoJSON() {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
@@ -44,10 +44,8 @@ public class UserService {
     }
 
     @PostConstruct
-    public void readfromJSON() {
+    public void readUsersfromJSON(ObjectMapper  mapper) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
-        ObjectMapper mapper = new ObjectMapper();
-
         if (file.exists() && file.length() != 0) {
             try {
                 List<User> users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
@@ -59,9 +57,38 @@ public class UserService {
         }
     }
 
+    public void WritematchedUserstoJSON(ObjectMapper  mapper) {
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
-    public List<User> getandmatchusersRandomly() {
-        List<User> matcheduserList = new ArrayList<>();
+        if (file.exists() && file.length() == 0) {
+            try {
+                List<User> matchedusers = new ArrayList<>();
+                getandmatchusersRandomly(matchedusers);
+                mapper.writeValue(file, matchedusers);
+                isExecuted = true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void ReadmatchedUsersfromJSON(ObjectMapper  mapper) {
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
+
+
+        if (file.exists() && file.length() != 0) {
+            try {
+                List<User> matchedusers = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+                userList.addAll(matchedusers);
+                isExecuted = true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    public List<User> getandmatchusersRandomly(List<User> matcheduserList) {
         List<User> users = new ArrayList<>(userList);
         if (users.size() < 2) {
             throw new IllegalStateException("Not enough users to match");
@@ -77,15 +104,13 @@ public class UserService {
         return matcheduserList;
     }
 
-    public List<User> getandmatchusers() {
-        List<User> matcheduserList = new ArrayList<>();
+    public List<User> getandmatchUsers(List<User> matcheduserList) {
         for (User entereduser : userList) {
             validateUser(entereduser);
             for (User existingUser : userList) {
                 validateUser(existingUser);
                 if (entereduser.equals(existingUser)) {
                     matcheduserList.add(entereduser);
-                    matcheduserList.add(existingUser);
                 }
             }
         }
@@ -97,6 +122,9 @@ public class UserService {
             throw new IllegalStateException("User ID or Name is null");
         } else if (user.getID().isEmpty() || user.getName().isEmpty()) {
             throw new IllegalStateException("User ID or Name is empty");
+        }
+        if (user.getID() != null && user.getName().equals(user.getID() + user.getName())) {
+            throw new IllegalStateException("Users are the same and cant be matched");
         }
     }
 }
