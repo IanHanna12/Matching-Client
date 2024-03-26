@@ -47,7 +47,7 @@ public class UserService {
 
         // If the file does not exist or is empty, write to it
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i <= 100; i++) {
             users.add(generateRandomUser());
         }
         try {
