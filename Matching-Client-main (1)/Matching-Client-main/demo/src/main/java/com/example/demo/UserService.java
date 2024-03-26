@@ -45,6 +45,22 @@ public class UserService {
         }
     }
 
+    @PostConstruct
+    public void readfromJSON() {
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
+        ObjectMapper mapper = new ObjectMapper();
+
+        if (file.exists() && file.length() != 0) {
+            try {
+                List<User> users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+                userList.addAll(users);
+                isExecuted = true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     public List<User> getandmatchusersRandomly() {
         List<User> matcheduserList = new ArrayList<>();
@@ -64,19 +80,25 @@ public class UserService {
     }
 
     public List<User> getandmatchusers() {
+        List<User> matcheduserList = new ArrayList<>();
         for (User entereduser : userList) {
-            if (entereduser.getID() == null || entereduser.getName() == null) {
-                throw new IllegalStateException("User ID or Name is null");
-            } else if (entereduser.getID().isEmpty() || entereduser.getName().isEmpty()) {
-                throw new IllegalStateException("User ID or Name is empty");
-            } else {
-                for (User existingUser : userList) {
-                    if (existingUser == entereduser && (existingUser.getID().equals(entereduser.getID()) || existingUser.getName().equals(entereduser.getName()))) {
-                        throw new IllegalStateException("User ID or Name already exists");
-                    }
+            validateUser(entereduser);
+            for (User existingUser : userList) {
+                validateUser(existingUser);
+                if (entereduser.equals(existingUser)) {
+                    matcheduserList.add(entereduser);
+                    matcheduserList.add(existingUser);
                 }
             }
         }
-        return userList;
+        return matcheduserList;
+    }
+
+    private void validateUser(User user) {
+        if (user.getID() == null || user.getName() == null) {
+            throw new IllegalStateException("User ID or Name is null");
+        } else if (user.getID().isEmpty() || user.getName().isEmpty()) {
+            throw new IllegalStateException("User ID or Name is empty");
+        }
     }
 }
