@@ -51,10 +51,15 @@ public class UserService {
         if (users.size() < 2) {
             throw new IllegalStateException("Not enough users to match");
         }
-        while (matcheduserList.size() == 1) {
+        while (matcheduserList.size() < users.size()) {
             int randomIndex = ThreadLocalRandom.current().nextInt(users.size());
             matcheduserList.add(users.get(randomIndex));
             users.remove(randomIndex);
+            if (!users.isEmpty()) {
+                randomIndex = ThreadLocalRandom.current().nextInt(users.size());
+                matcheduserList.add(users.get(randomIndex));
+                users.remove(randomIndex);
+            }
         }
         return matcheduserList;
     }
