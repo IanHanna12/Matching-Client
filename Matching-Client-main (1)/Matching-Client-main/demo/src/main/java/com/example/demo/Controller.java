@@ -3,7 +3,6 @@ package com.example.demo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import com.example.demo.UserService;
 
 @RestController
 public class Controller {
@@ -13,8 +12,13 @@ public class Controller {
         this.userService = userService;
     }
 
-    @GetMapping("/mappedUsers")
-    public List<User> getUsers() {
-        return userService.getmatchedUsers();
+    @GetMapping("/matchusersRandomly")
+    public List<User> matchUsersRandomly() {
+        return userService.getandmatchusersRandomly();
+    }
+
+    @GetMapping("/matchUsers")
+    public List<User> matchUsers() {
+        return userService.getandmatchusers();
     }
 }
