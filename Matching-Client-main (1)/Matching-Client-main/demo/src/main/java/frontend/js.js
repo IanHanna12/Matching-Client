@@ -1,10 +1,13 @@
-<!DOCTYPE html>
 <html>
 <body>
 
-<p id="demo"></p>
+<p id="demo">
 
-<script src="js.js"></script>
+</p>
+
+<script>
+  document.getElementById("A").innerHTML = "Hello World!";
+</script>
 
 </body>
 </html>
