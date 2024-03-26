@@ -2,7 +2,6 @@
 package com.example.demo;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,6 @@ public class UserService {
     public void writetoJSON() {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         // Check if the file exists and is not empty
         if (file.exists() && file.length() != 0) {
@@ -39,6 +37,7 @@ public class UserService {
                 // Try to read the file content
                 List<User> existingUsers = mapper.readValue(file, new TypeReference<List<User>>() {});
                 if (!existingUsers.isEmpty()) {
+                    // If the file is not empty, do not write to it
                     return;
                 }
             } catch (IOException e) {
@@ -48,7 +47,7 @@ public class UserService {
 
         // If the file does not exist or is empty, write to it
         List<User> users = new ArrayList<>();
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i < 10; i++) {
             users.add(generateRandomUser());
         }
         try {
