@@ -30,7 +30,7 @@ public class UserService {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
-        if (file.exists() && file.length() != 0) {
+        if (file.exists() && file.length() == 0) {
             try {
                 List<User> users = new ArrayList<>();
                 for (int i = 0; i <= 100; i++) {
