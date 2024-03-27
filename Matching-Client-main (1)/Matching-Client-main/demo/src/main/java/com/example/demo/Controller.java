@@ -33,7 +33,7 @@ public class Controller {
     }
 
     @PostMapping("/writeUsers")
-    public void writeUsersToJson() {
+    public void writeUserstoJson() {
         userService.writeUserstoJSON();
     }
 

@@ -20,20 +20,26 @@ public class UserService {
         this.userList = userList;
     }
 
+    public static class gettimefromUser {
+        String time = "";
+
+
+    }
+
     public User generateRandomUser() {
-        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100));
+        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " " +   "time:" + new gettimefromUser().time);
     }
 
     @PostConstruct
     public void writeUserstoJSON() {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
-
         if (file.exists() && file.length() == 0) {
             try {
                 List<User> users = new ArrayList<>();
                 for (int i = 0; i <= 100; i++) {
-                    users.add(generateRandomUser());
+                    User user = generateRandomUser();
+                    users.add(user);
                 }
                 mapper.writeValue(file, users);
                 isExecuted = true;
