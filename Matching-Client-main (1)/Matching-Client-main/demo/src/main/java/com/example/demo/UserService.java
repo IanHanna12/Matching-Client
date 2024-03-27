@@ -44,7 +44,7 @@ public class UserService {
     }
 
     @PostConstruct
-    public void readUsersfromJSON() {
+    public List<User> readUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         if (file.exists() && file.length() != 0) {
@@ -56,6 +56,7 @@ public class UserService {
                 throw new RuntimeException(e);
             }
         }
+        return userList;
     }
 
     public void WritematchedUserstoJSON(ObjectMapper mapper) {
@@ -73,21 +74,21 @@ public class UserService {
         }
     }
 
-    public void ReadmatchedUsersfromJSON(ObjectMapper mapper) {
+    public List<User> ReadmatchedUsersfromJSON(List<User> users) {
+        ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
-
-
+        List<User> matchedusers = new ArrayList<>();
         if (file.exists() && file.length() != 0) {
             try {
-                List<User> matchedusers = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+                matchedusers = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
                 userList.addAll(matchedusers);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+        return matchedusers;
     }
-
 
     public List<User> getandmatchusersRandomly(List<User> matcheduserList) {
         List<User> users = new ArrayList<>(userList);
@@ -128,4 +129,9 @@ public class UserService {
             throw new IllegalStateException("Users are the same and cant be matched");
         }
     }
+
+    public List<User> getMatchedUsers(List<User> matcheduserList) {
+        return matcheduserList;
+    }
 }
+

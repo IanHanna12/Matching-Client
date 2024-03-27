@@ -1,7 +1,9 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -23,5 +25,30 @@ public class Controller {
     @GetMapping("/matchUsers")
     public List<User> matchUsers() {
         return userService.getandmatchUsers(users);
+    }
+
+    @PutMapping("getmatchedUsers")
+    public List<User> getMatchedUsers() {
+        return userService.getMatchedUsers(users);
+    }
+
+    @PostMapping("/writeUsers")
+    public void writeUsersToJson() {
+        userService.writeUserstoJSON();
+    }
+
+    @GetMapping("/readUsers")
+    public List<User> readUsersFromJson() {
+        return userService.readUsersfromJSON();
+    }
+
+    @PostMapping("/writeMatchedUsers")
+    public void writeMatchedUsersToJson() {
+        userService.WritematchedUserstoJSON((ObjectMapper) users);
+    }
+
+    @GetMapping("/readMatchedUsers")
+    public List<User> readMatchedUsersFromJson() {
+        return userService.ReadmatchedUsersfromJSON(users);
     }
 }
