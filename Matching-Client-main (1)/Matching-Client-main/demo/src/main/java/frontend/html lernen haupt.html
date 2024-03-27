@@ -1,83 +1,91 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>html lernen</title>
-  <link rel="stylesheet" href="css.css">
-  <script src="js.js"></script>
+    <meta charset="UTF-8">
+    <title>html lernen</title>
+    <link rel="stylesheet" href="css.css">
+    <script src="js.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <script>
-    function validateForm() {
-      let x = document.forms["myForm"]["fname"].value;
-      if (x === "") {
-        alert("Name must be filled out");
-        return false;
-      }
-    }
-  </script>
+    <script>
+        function validateForm() {
+            let x = document.forms["myForm"]["fname"].value;
+            if (x === "") {
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#submitinput").click(function(){
+              alert("Nachname wurde gespeichert");
+            });
+        });
+    </script>
 </head>
 <body>
 
 <section class="Titel">
-  <div class="Inhalt">
-    <h1>Lunch Roulette</h1>
-    <pre class="Erklärung">
+    <div class="Inhalt">
+        <h1>Lunch Roulette</h1>
+        <pre class="Erklärung">
       <p id="A"> Du kannst dein Lunchpartner entweder selber wählen dann musst du
         ein Name eingeben oder du kannst auf random klicken und
         es sucht dir ein zufälligen Lunchpartner aus</p>
     </pre>
-    <b id="Anmelden"> Bitte Anmelden</b>
-    <div class="Eingabe">
-      <form id="restaurant" action="/action_page.php" onsubmit="return validateForm()" method="post">
-        <select id="restaurantdrop" name="Restaurants">
-          <option value="Restaurant wählen">Restaurant wählen</option>
-          <option value="Stiftsberg">Stiftsberg</option>
-          <option value="Weinsberg">Weinsberg</option>
-          <option value="Olgastraße">Olgastraße</option>
-          <option value="Rötelstraße35">Rötelstraße</option>
-          <option value="Rötelstraße36">Rötelstraße</option>
-          <option value="Schönbeinstraße">Schönbeinstraße</option>
-          <option value="Badwimpfen">Badwimpfen</option>
-          <option value="Experimenta">Experimenta</option>
-          <option value="Heiner-Fleischmannstraße">Heiner-Fleischmannstraße</option>
-          <option value="Salzstraße">Salzstraße</option>
-          <option value=" Cäcille">Cäcille</option>
-        </select>
-        <input id="submitinput3" type="submit" value="Submit">
-      </form>
-      <form id="vorname" action="/action_page.php" onsubmit="return validateForm()" method="post" style="font-size: large">
-        <input id="vornameinput" type="text" name="restaurantName" placeholder="Vorname">
-        <input id="submitinput2" type="submit" value="Submit">
-      </form>
+        <b id="Anmelden"> Bitte Anmelden</b>
+        <div class="Eingabe">
+            <form id="restaurant" action="/action_page.php" onsubmit="return validateForm()" method="post">
+                <select id="restaurantdrop" name="Restaurants">
+                    <option value="Restaurant wählen">Restaurant wählen</option>
+                    <option value="Stiftsberg">Stiftsberg</option>
+                    <option value="Weinsberg">Weinsberg</option>
+                    <option value="Olgastraße">Olgastraße</option>
+                    <option value="Rötelstraße35">Rötelstraße</option>
+                    <option value="Rötelstraße36">Rötelstraße</option>
+                    <option value="Schönbeinstraße">Schönbeinstraße</option>
+                    <option value="Badwimpfen">Badwimpfen</option>
+                    <option value="Experimenta">Experimenta</option>
+                    <option value="Heiner-Fleischmannstraße">Heiner-Fleischmannstraße</option>
+                    <option value="Salzstraße">Salzstraße</option>
+                    <option value=" Cäcille">Cäcille</option>
+                </select>
+                <input id="submitinput3" type="submit" value="Submit" />
+            </form>
+            <form id="vorname" action="/action_page.php" onsubmit="return validateForm()" method="post" style="font-size: large">
+                <input id="vornameinput" type="text" name="restaurantName" placeholder="Vorname">
+                <input id="submitinput2" type="submit" value="Submit" />
+            </form>
 
-      <form id="nachname" action="/action_page.php" onsubmit="return validateForm()" method="post">
-        <input id="nachnameinput" type="text" name="nachname" placeholder="Nachname">
-        <input id="submitinput" type="submit" value="Submit">
-      </form>
+            <form id="nachname" action="/action_page.php" onsubmit="return validateForm()" method="post">
+                <input id="nachnameinput" type="text" name="nachname" placeholder="Nachname">
+                <input id="submitinput" type="submit" value="Submit" />
+            </form>
+
+        </div>
 
     </div>
-
-  </div>
 </section>
 <section class="Matching">
-  <div class="Matching-Inhalt">
+    <div class="Matching-Inhalt">
 
     <pre class="random">
       <form id="vorname2" action="/action_page.php" onsubmit="return validateForm()" method="post" style="font-size: large">
-        <input id="vornameinput2" type="text" name="restaurantName" placeholder="Vorname">
+        <input id="vornameinput2" type="text" name="restaurantName" placeholder="Vorname" />
       </form>
 
       <form id="nachname2" action="/action_page.php" onsubmit="return validateForm()" method="post">
-        <input id="nachnameinput2" type="text" name="nachname" placeholder="Nachname">
+        <input id="nachnameinput2" type="text" name="nachname" placeholder="Nachname" />
       </form>
 
       <video width="640" height="360" controls>
-        <source src="vecteezy_risking-your-fortune-or-gambling-at-a-casino-roulette-type_7173385.mov" type="video/quicktime">
-        hallo
+        <source src="vecteezy_risking-your-fortune-or-gambling-at-a-casino-roulette-type_7173385.mov" type="video/quicktime" />
       </video>
     </pre>
 
-  </div>
+    </div>
 </section>
 
 </body>
