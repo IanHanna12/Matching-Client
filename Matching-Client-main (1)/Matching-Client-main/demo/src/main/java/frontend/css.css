@@ -61,6 +61,12 @@ h1 {
   height: 50px;
   font-size: large;
 }
+#timeinput {
+  width: 305px;
+  height: 50px;
+  font-size: large;
+}
+
 #submitbutton{
   width: 200px;
   height: 40px;

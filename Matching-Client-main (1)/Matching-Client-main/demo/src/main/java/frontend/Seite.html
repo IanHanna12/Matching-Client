@@ -72,9 +72,13 @@
             </form>
             <form id="id" action="/submit2" onsubmit="return validateForm()" method="post"
                   style="font-size: large">
-                <input id="idinput" type="text" name="UserID" placeholder="ID">
+                <input id="idinput" type="text" name="UserID" placeholder="Deine ID">
             </form>
 
+            <form id="time" action="/submit2" onsubmit="return validateForm()" method="post"
+                  style="font-size: large">
+                <input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit">
+            </form>
 
             <button onclick="submitFormsajax()" id="submitbutton">Submit</button>
 
@@ -82,7 +86,12 @@
 
     </div>
 </section>
+
+
+
+
 <section class="Matching">
+
     <div class="Matching-Inhalt">
 
     <pre class="random">
@@ -104,8 +113,7 @@
 
 <script>
 
-    // Beispiel: Die Funktion wird bei Laden der Seite aufgerufen, um sofort eine zufällige Zahl anzuzeigen
-
+var generierterInhalt= ''
 </script>
 
 
