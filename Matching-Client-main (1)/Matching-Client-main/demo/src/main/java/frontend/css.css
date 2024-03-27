@@ -1,52 +1,117 @@
-:root {
-  --background-color: #f0f0f0;
-  --content-color: #ffffff;
-  --text-color: #333333;
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-}
-
 body {
-  background-color: var(--background-color);
+  background-color: #dcdff5;
   text-align: center;
-  font-family: Arial, sans-serif;
 }
-
-.header {
+.Titel {
   height: 20rem;
-  margin: 0 10px 5rem;
-  border-radius: 10px;
-  padding: 10px 100px;
-  background-color: var(--content-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  margin-bottom: 5rem;
+  margin-left: 10px;
+  margin-right: 10px;
 
-.content {
   border-radius: 10px;
-  background-color: var(--content-color);
-  padding: 0 50px 30px;
+  padding-top: 10px;
+  padding-right: 100px;
+  padding-left: 100px;
+}
+.Inhalt {
+  border-radius: 10px; /* Abrundung der Ecken des Kastens */
+  background-color: cadetblue;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-bottom: 30px;
   text-align: center;
   margin-bottom: 100px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 h1 {
-  color: var(--primary-color);
+  color: black;
   font-size: 60px;
   height: 50px;
-  margin: 0 130px;
+  margin-left: 130px;
+  margin-right: 130px;
   text-align: center;
   padding-top: 30px;
-}
 
+}
 #A {
   font-style: normal;
   font-size: 40px;
   text-align: center;
 }
-
-#sign-in {
+#Anmelden{
   text-align: center;
   font-size: large;
-  color: var(--secondary-color);
+}
+
+
+#restaurantdrop {
+  width: 315px;
+  height: 50px;
+  font-size: large;
+}
+
+#idinput {
+  width: 305px;
+  height: 50px;
+  font-size: large;
+}
+#idinputmatch{
+  width: 305px;
+  height: 50px;
+  font-size: large;
+}
+#submitbutton{
+  width: 200px;
+  height: 40px;
+  font-size: large;
+}
+
+
+p {
+  text-align: center;
+}
+
+.random {
+  background-color: cadetblue;
+  color: black;
+  font-style: oblique;
+  font-size: 20px;
+  margin-left: 110px;
+  margin-right: 110px;
+  margin-top: 350px;
+  border-radius: 10px;
+}
+
+
+#B {
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+}
+
+#C, D, E, F {
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+}
+
+
+#vornameinput2 {
+  width: 305px;
+  height: 50px;
+  font-size: large;
+
+}
+
+#nachnameinput2 {
+  width: 305px;
+  height: 50px;
+  font-size: large;
+
+}
+
+
+.Erklärung {
+  text-align: justify;
 }

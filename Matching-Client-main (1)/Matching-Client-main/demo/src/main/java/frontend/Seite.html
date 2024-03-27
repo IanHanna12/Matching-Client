@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>html lernen</title>
+    <link rel="stylesheet" href="css.css">
+    <script src="js.js"></script>
+    <script src="Jquery.js"></script>
+
+
+
+    <script>function submitForms() {
+        document.getElementById("id").submit();
+        document.getElementById("restaurant").submit('')
+    }
+    function validateForm() {
+        let x = document.forms["myForm"]["fname"].value;
+        if (x === "") {
+            alert("Name must be filled out");
+
+            return false;
+        }
+    }
+
+    function submitFormsajax() {
+        var url = 'http://localhost:63342/'
+        dataType = 'json'
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: 'data543453',
+            //success: success,
+            dataType: dataType
+        })
+    }
+
+
+        $(document).ready(function(){
+            $("submitbutton").click(function(){
+              alert("Vorname wurde gespeichert");
+            });
+        });
+    </script>
+</head>
+<body>
+
+<section class="Titel">
+    <div class="Inhalt">
+        <h1>Lunch Roulette</h1>
+        <pre class="Erklärung">
+  <p id="A"> Du kannst dein Lunchpartner entweder selber wählen dann musst du
+    ein Name eingeben oder du kannst auf random klicken und
+    es sucht dir ein zufälligen Lunchpartner aus</p>
+</pre>
+        <b id="Anmelden"> Bitte Anmelden</b>
+        <div class="Eingabe">
+            <form id="restaurant" action="/submit1" onsubmit="return validateForm()" method="post">
+                <select id="restaurantdrop" name="Restaurants">
+                    <option value="Restaurant wählen">Restaurant wählen</option>
+                    <option value="Stiftsberg">Stiftsberg</option>
+                    <option value="Weinsberg">Weinsberg</option>
+                    <option value="Olgastraße">Olgastraße</option>
+                    <option value="Rötelstraße35">Rötelstraße</option>
+                    <option value="Rötelstraße36">Rötelstraße</option>
+                    <option value="Schönbeinstraße">Schönbeinstraße</option>
+                    <option value="Badwimpfen">Badwimpfen</option>
+                    <option value="Experimenta">Experimenta</option>
+                    <option value="Heiner-Fleischmannstraße">Heiner-Fleischmannstraße</option>
+                    <option value="Salzstraße">Salzstraße</option>
+                    <option value=" Cäcille">Cäcille</option>
+                </select>
+            </form>
+            <form id="id" action="/submit2" onsubmit="return validateForm()" method="post"
+                  style="font-size: large">
+                <input id="idinput" type="text" name="UserID" placeholder="ID">
+            </form>
+
+
+            <button onclick="submitFormsajax()" id="submitbutton">Submit</button>
+
+        </div>
+
+    </div>
+</section>
+<section class="Matching">
+    <div class="Matching-Inhalt">
+
+    <pre class="random">
+
+      <button onclick="generateRandomNumber()"> Zufälliger Kollege</button>
+
+         <form id="idmatch" onsubmit="return validateForm()" method="post"
+               style="font-size: large">
+        <input id="idinputmatch" type="text" name="UserID" placeholder="MatchID">
+      </form>
+
+
+      <video width="640" height="360" controls>
+        <source src="vecteezy_risking-your-fortune-or-gambling-at-a-casino-roulette-type_7173385.mov" type="video/quicktime">hallo
+      </video>
+    </pre>
+    </div>
+</section>
+
+<script>
+
+    // Beispiel: Die Funktion wird bei Laden der Seite aufgerufen, um sofort eine zufällige Zahl anzuzeigen
+
+</script>
+
+
+</body>
+</html>
+
+
