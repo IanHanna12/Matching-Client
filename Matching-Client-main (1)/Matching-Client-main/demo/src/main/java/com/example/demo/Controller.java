@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class Controller {
     private final UserService userService;
-    private final List<User> users; // Assuming you have a list of users available
+    private final List<User> users;
 
     public Controller(UserService userService, List<User> users) {
         this.userService = userService;
