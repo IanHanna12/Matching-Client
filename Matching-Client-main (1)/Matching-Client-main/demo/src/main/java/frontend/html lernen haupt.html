@@ -7,6 +7,7 @@
     <script src="js.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
     <script>
         function validateForm() {
             let x = document.forms["myForm"]["fname"].value;
@@ -21,6 +22,12 @@
         $(document).ready(function(){
             $("#submitinput").click(function(){
               alert("Nachname wurde gespeichert");
+            });
+        });
+
+        $(document).ready(function(){
+            $("#submitinput2").click(function(){
+              alert("Vorname wurde gespeichert");
             });
         });
     </script>
