@@ -12,13 +12,15 @@ public class User {
     @JsonProperty
     private String ID;
 
-    // No-argument constructor
-    public User() {}
+   public User() {}
+    public User(String s, String string) {}
 
     // Constructor with parameters
-    public User(String name, String ID) {
+    public User(String name, String ID, String time) {
         this.name = name;
         this.ID = ID;
+
+
     }
 
     public String getName() {

@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.time.LocalTime;
 
 @Service
 public class UserService {
@@ -20,14 +22,12 @@ public class UserService {
         this.userList = userList;
     }
 
-    public static class gettimefromUser {
-        String time = "";
-
-
-    }
+    LocalTime startingTime = LocalTime.of(11, 30);
+   int randomtimeIntervals = ThreadLocalRandom.current().nextInt(0, 100);
+    LocalTime randomTime = startingTime.plusMinutes(randomtimeIntervals * 30L);
 
     public User generateRandomUser() {
-        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " " +   "time:" + new gettimefromUser().time);
+        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " " +   "Time" + randomTime);
     }
 
     @PostConstruct
@@ -113,14 +113,17 @@ public class UserService {
     }
 
     public List<User> getandmatchUsers(List<User> matcheduserList) {
-        for (User entereduser : userList) {
-            validateUser(entereduser);
-            for (User existingUser : userList) {
-                validateUser(existingUser);
-                if (entereduser.equals(existingUser)) {
-                    matcheduserList.add(entereduser);
-                }
-            }
+        List<User> users = new ArrayList<>(userList);
+        if (users.size() < 2) {
+            throw new IllegalStateException("Not enough users to match");
+        }
+        while (!users.isEmpty()) {
+            User user1 = users.removeFirst();
+            User user2 = users.removeFirst();
+            validateUser(user1);
+            validateUser(user2);
+            matcheduserList.add(user1);
+            matcheduserList.add(user2);
         }
         return matcheduserList;
     }
