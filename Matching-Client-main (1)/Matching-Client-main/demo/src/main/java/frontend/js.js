@@ -48,8 +48,8 @@ function  getUsers() {
 }
 
 function findmatch () {
-  var timeUser = "Zeit"
-  document.getElementById('timeinput').value = timeUser
+    var timeUser = document.getElementById('timeinput').value;
+
 
 }
 

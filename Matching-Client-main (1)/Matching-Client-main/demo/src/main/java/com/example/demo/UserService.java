@@ -25,8 +25,8 @@ public class UserService {
         java.time.LocalTime startingTime = java.time.LocalTime.of(11, 30);
         int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
         java.time.LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
-        String timeUser = randomTime.toString();
-        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " Time: " + timeUser, null);
+        String time = randomTime.toString();
+        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100), "Time: " + time);
     }
 
     @PostConstruct
@@ -130,11 +130,11 @@ public class UserService {
     }
 
     private User validateUser(User user) {
-        String timeUser = user.getUsertime();
-        if (timeUser == null) {
+        String Inputtime= user.getUsertime();
+        if (Inputtime == null) {
             throw new IllegalStateException("User has no time");
         }
-        if (timeUser.equals(user.getUsertime())) {
+        if (Inputtime.equals(user.getUsertime())) {
             return user;
         }
         throw new IllegalStateException("User not added");

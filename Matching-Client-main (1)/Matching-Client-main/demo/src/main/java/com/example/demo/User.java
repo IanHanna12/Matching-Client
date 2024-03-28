@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
-    private String timeUser;
+    private String time;
     private String name;
     private String ID;
 
@@ -14,10 +14,10 @@ public class User {
     public User() {
     }
     // Constructor with parameters
-    public User(String name, String ID, String timeUser) {
+    public User(String name, String ID, String time) {
         this.name = name;
         this.ID = ID;
-        this.timeUser = timeUser;
+        this.time = time;
     }
 
     public String getName() {
@@ -31,6 +31,6 @@ public class User {
 
 
     public String getUsertime() {
-        return timeUser;
+       return time;
     }
 }
