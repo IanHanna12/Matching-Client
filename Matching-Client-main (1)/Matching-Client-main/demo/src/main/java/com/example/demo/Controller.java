@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.origin.Origin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,8 +11,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+
+
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
 public class Controller {
+
     private final UserService userService;
     private final List<User> users;
 
@@ -37,9 +50,10 @@ public class Controller {
     }
 
     @PostMapping("/writeUsers")
-    public void writeUserstoJson() {
+    public void writeUserstoJson() throws JsonProcessingException {
         userService.writeUserstoJSON();
     }
+
 
     @GetMapping("/readUsers")
     public List<User> readUsersFromJson() {
@@ -55,4 +69,10 @@ public class Controller {
     public List<User> readMatchedUsersFromJson() {
         return userService.ReadmatchedUsersfromJSON(users);
     }
+
+    @GetMapping("/Helloworld")
+    public String HelloWorld() {
+        return "Hello World";
+    }
 }
+

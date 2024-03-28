@@ -1,8 +1,4 @@
-function generateRandomNumber() {
-  var randomNumber = Math.floor(Math.random() * 100) + 1; // Zufällige Zahl zwischen 1 und 100 generieren
-  document.getElementById("idinputmatch").value = randomNumber; // Zufällige Zahl in den Kasten einfügen
-}
-generateRandomNumber();
+
 
 function submitForms() {
   document.getElementById("id").submit();
@@ -24,15 +20,11 @@ function alert() {
 function zeigeAlert() {
   alert("Button wurde geklickt!");
 }
-$(document).ready(function(){
-  $("#submitbutton").click(function(){
-    alert("Vorname wurde gespeichert");
-  });
-});
+
 
 function  getUsers() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://localhost:8080/users', true);
+  xhr.open('GET', 'http://localhost:8080/Helloworld', true);
   xhr.onload = function() {
     if (xhr.status >= 200 && xhr.status < 300) {
       var users = JSON.parse(xhr.responseText);
@@ -65,12 +57,12 @@ function findmatch2() {
 }
 
 function findmatchajax() {
-  const url = 'http://localhost:8080/users';
+  const url = 'http://localhost:8080/Helloworld';
 
   var timeUser = document.getElementById('timeinput').value;
 
   $.ajax({
-    type: "POST",
+    type: "GET",
     url: url,
     data: JSON.stringify({ timeUser: timeUser }),
     contentType: 'application/json',
