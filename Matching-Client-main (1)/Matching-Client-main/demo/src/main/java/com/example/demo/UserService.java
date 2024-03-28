@@ -26,7 +26,7 @@ public class UserService {
         int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
         java.time.LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
         String time = randomTime.toString();
-        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100), "Time: " + time);
+        return new User("User" + ThreadLocalRandom.current().nextInt(100), ""  + " " + ThreadLocalRandom.current().nextInt(100), "Time: " + time);
     }
 
     @PostConstruct
