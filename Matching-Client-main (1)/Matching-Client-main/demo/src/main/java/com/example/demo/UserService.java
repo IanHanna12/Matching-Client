@@ -22,12 +22,11 @@ public class UserService {
         this.userList = userList;
     }
 
-    LocalTime startingTime = LocalTime.of(11, 30);
-   int randomtimeIntervals = ThreadLocalRandom.current().nextInt(0, 100);
-    LocalTime randomTime = startingTime.plusMinutes(randomtimeIntervals * 30L);
-
     public User generateRandomUser() {
-        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " " +   "Time" + randomTime);
+        LocalTime startingTime = LocalTime.of(11, 30);
+        int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
+        LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
+        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " " + "Time" + randomTime);
     }
 
     @PostConstruct
