@@ -135,9 +135,11 @@ public class UserService {
             throw new IllegalStateException("User has no time");
         }
         if (timeUser.equals(user.getUsertime())) {
-            throw new IllegalStateException("User has no time");
+            return user;
         }
-        return user;
+        throw new IllegalStateException("User not added");
     }
-
 }
+
+
+
