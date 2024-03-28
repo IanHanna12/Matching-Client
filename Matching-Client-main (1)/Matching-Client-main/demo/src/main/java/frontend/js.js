@@ -17,17 +17,7 @@ function validateForm() {
   }
 }
 
-function submitFormsajax() {
-  const url = 'http://localhost:63342/';
-  const dataType = 'json';
-  $.ajax({
-    type: "POST",
-    url: url,
-    data: 'data543453',
-    // success: success,
-    dataType: dataType
-  });
-}
+
 function alert() {
   alert("So geht es");
 }
@@ -39,6 +29,7 @@ $(document).ready(function(){
     alert("Vorname wurde gespeichert");
   });
 });
+
 function  getUsers() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://localhost:8080/users', true);
@@ -55,4 +46,46 @@ function  getUsers() {
   };
   xhr.send();
 }
+
+function findmatch () {
+  var timeUser = "Zeit"
+  document.getElementById('timeinput').value = timeUser
+
+}
+
+function findmatch2() {
+
+  var timeUser = document.getElementById('timeinput').value;
+  const url = 'http://localhost:8080/users'; // Replace with the actual URL
+  const data = {
+    timeUser
+  };
+
+
+}
+
+function findmatchajax() {
+  const url = 'http://localhost:8080/users';
+
+  var timeUser = document.getElementById('timeinput').value;
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: JSON.stringify({ timeUser: timeUser }),
+    contentType: 'application/json',
+    success: function(jsonData) {
+
+      if (jsonData.times.includes(timeUser)) {
+        document.getElementById('idinputmatch').value = 'Match gefunden mit:';
+      } else {
+        document.getElementById('idinputmatch').value = 'Kein Match gefunden';
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Error:', error);
+    }
+  });
+}
+
 
