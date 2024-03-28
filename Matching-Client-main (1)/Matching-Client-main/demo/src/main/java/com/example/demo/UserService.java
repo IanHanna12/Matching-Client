@@ -6,12 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.PublicKey;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.time.LocalTime;
+
 
 @Service
 public class UserService {
@@ -24,10 +22,11 @@ public class UserService {
     }
 
     public User generateRandomUser() {
-        LocalTime startingTime = LocalTime.of(11, 30);
+        java.time.LocalTime startingTime = java.time.LocalTime.of(11, 30);
         int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
-        LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
-        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " " + "Time" + randomTime);
+        java.time.LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
+        String timeUser = randomTime.toString();
+        return new User("User" + ThreadLocalRandom.current().nextInt(100), "ID" + ThreadLocalRandom.current().nextInt(100) + " Time: " + timeUser, null);
     }
 
     @PostConstruct
@@ -113,6 +112,7 @@ public class UserService {
         return matcheduserList;
     }
 
+
     public List<User> getandmatchUsers(List<User> matcheduserList) {
         List<User> users = new ArrayList<>(userList);
         if (users.size() < 2) {
@@ -130,19 +130,14 @@ public class UserService {
     }
 
     private User validateUser(User user) {
-        String userenteredID = "";
-        if (user.getName() == null || user.getName().isBlank()) {
-            throw new IllegalStateException("User name is missing");
+        String timeUser = user.getUsertime();
+        if (timeUser == null) {
+            throw new IllegalStateException("User has no time");
         }
-        if (user.getID() == null || user.getID().isBlank()) {
-            throw new IllegalStateException("User ID is missing");
+        if (timeUser.equals(user.getUsertime())) {
+            throw new IllegalStateException("User has no time");
         }
-
-        if (user.getID().equals(userenteredID)) {
-            return user;
-        }
-        return null;
+        return user;
     }
 
 }
-

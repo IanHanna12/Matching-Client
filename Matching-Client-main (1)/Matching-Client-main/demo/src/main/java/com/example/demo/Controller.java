@@ -25,11 +25,12 @@ public class Controller {
 
 
 
+    /*
     @GetMapping("/matchUsers")
     public List<User> matchUsers() {
         return userService.getandmatchUsers(users);
     }
-
+*/
     @PutMapping("getmatchedUsers")
     public List<User> getMatchedUsers() {
         return userService.ReadmatchedUsersfromJSON(users);
