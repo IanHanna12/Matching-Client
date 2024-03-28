@@ -4,9 +4,6 @@ function generateRandomNumber() {
 }
 generateRandomNumber();
 
-
-
-
 function submitForms() {
   document.getElementById("id").submit();
   document.getElementById("restaurant").submit('');
@@ -42,10 +39,20 @@ $(document).ready(function(){
     alert("Vorname wurde gespeichert");
   });
 });
-
-function generateRandomNumber() {
-  const randomNumber = Math.floor(Math.random() * 100) + 1;
-  document.getElementById("idinputmatch").value = randomNumber;
+function  getUsers() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://localhost:8080/users', true);
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      var users = JSON.parse(xhr.responseText);
+      document.getElementById('idinputmatch').value = JSON.stringify(users, null, 2);
+    } else {
+      console.error('Request failed with status:', xhr.status);
+    }
+  };
+  xhr.onerror = function() {
+    console.error('Request failed');
+  };
+  xhr.send();
 }
 
-generateRandomNumber();

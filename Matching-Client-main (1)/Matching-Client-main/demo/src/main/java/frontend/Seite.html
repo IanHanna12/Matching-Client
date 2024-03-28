@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="css.css">
     <script src="js.js"></script>
     <script src="Jquery.js"></script>
-
-
        <script>function submitForms() {
         document.getElementById("id").submit();
         document.getElementById("restaurant").submit('')
@@ -22,45 +20,9 @@
             return false;
         }
     }
-
-    function submitFormsajax() {
-        var url = 'http://localhost:63342/'
-        dataType = 'json'
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: 'data543453',
-            //success: success,
-            dataType: dataType
-        })
-    }
-
-
-       $(document).ready(function(){
-           $("submitbutton").click(function(){
-               $.ajax({
-                   url: '/matchUsers',
-                   type: 'GET',
-                   success: function(user) {
-                       try {
-                           let validatedUser = validateUser(user);
-                           if (validatedUser) {
-                               console.log("User is valid: ", validatedUser);
-                           } else {
-                               console.error("User is not valid");
-                           }
-                       } catch (error) {
-                           console.error(error.message);
-                       }
-                   },
-                   error: function(jqXHR, textStatus, errorThrown) {
-                       console.error("Request failed: ", textStatus, errorThrown);
-                   }
-               });
-           });
-       });
-    </script>
+       </script>
 </head>
+
 <body>
 
 <section class="Titel">
@@ -99,7 +61,7 @@
                 <input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit">
             </form>
 
-            <button onclick="submitFormsajax()" id="submitbutton">Submit</button>
+            <button onclick="getUsers()" id="submitbutton">Submit</button>
 <button onclick="zeigeAlert()" id="alert button">Alert</button>
         </div>
 
