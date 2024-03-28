@@ -54,12 +54,16 @@ h1 {
 #idinput {
   width: 305px;
   height: 50px;
-  font-size: large;
+  font-size: medium;
 }
+
+
 #idinputmatch{
   width: 305px;
   height: 50px;
   font-size: large;
+  justify-content: center;
+  align-items: center;
 }
 #timeinput {
   width: 305px;
@@ -85,8 +89,10 @@ p {
   font-size: 20px;
   margin-left: 110px;
   margin-right: 110px;
-  margin-top: 350px;
+  margin-top: 450px;
   border-radius: 10px;
+  padding-top: 100px;
+  padding-right: 100px;
 }
 
 
@@ -101,7 +107,13 @@ p {
   font-size: 30px;
   text-align: center;
 }
-
+#randombutton{
+  width: 200px;
+  height: 40px;
+  font-size: large;
+  justify-content: center;
+  align-items: center;
+}
 
 #vornameinput2 {
   width: 305px;
@@ -120,4 +132,25 @@ p {
 
 .Erklärung {
   text-align: justify;
+}
+
+.Matching-Inhalt{
+  border-radius: 10px; /* Abrundung der Ecken des Kastens */
+ /* padding-right: 50px;
+  padding-left: 50px; */
+  padding-bottom: 30px;
+  text-align: center;
+  margin-bottom: 100px;
+  margin-right: 50px;
+}
+
+#idmatch{
+
+
+
+
+}
+/* Deine CSS-Regeln hier */
+button:hover {
+  background-color: lightblue;
 }

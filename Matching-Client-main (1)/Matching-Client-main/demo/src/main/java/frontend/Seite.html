@@ -2,14 +2,15 @@
 <html lang="de" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>html lernen</title>
+    <title>lunch roulette</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css.css">
     <script src="js.js"></script>
     <script src="Jquery.js"></script>
 
 
-
-    <script>function submitForms() {
+       <script>function submitForms() {
         document.getElementById("id").submit();
         document.getElementById("restaurant").submit('')
     }
@@ -40,6 +41,8 @@
               alert("Vorname wurde gespeichert");
             });
         });
+
+
     </script>
 </head>
 <body>
@@ -52,7 +55,7 @@
     ein Name eingeben oder du kannst auf random klicken und
     es sucht dir ein zufälligen Lunchpartner aus</p>
 </pre>
-        <b id="Anmelden"> Bitte Anmelden</b>
+        <b id="Anmelden"> Bitte Restaurant, ID und Essenszeit angeben</b>
         <div class="Eingabe">
             <form id="restaurant" action="/submit1" onsubmit="return validateForm()" method="post">
                 <select id="restaurantdrop" name="Restaurants">
@@ -81,7 +84,7 @@
             </form>
 
             <button onclick="submitFormsajax()" id="submitbutton">Submit</button>
-
+<button onclick="zeigeAlert()" id="alert button">Alert</button>
         </div>
 
     </div>
@@ -96,8 +99,7 @@
 
     <pre class="random">
 
-      <button onclick="generateRandomNumber()"> Zufälliger Kollege</button>
-
+              <button id="randombutton" onclick="generateRandomNumber()"> Zufälliger Kollege</button>
          <form id="idmatch" onsubmit="return validateForm()" method="post"
                style="font-size: large">
         <input id="idinputmatch" type="text" name="UserID" placeholder="MatchID">
@@ -113,7 +115,6 @@
 
 <script>
 
-var generierterInhalt= ''
 </script>
 
 
