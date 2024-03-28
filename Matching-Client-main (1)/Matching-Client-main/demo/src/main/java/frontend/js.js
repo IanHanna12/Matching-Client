@@ -5,6 +5,8 @@ function generateRandomNumber() {
 generateRandomNumber();
 
 
+
+
 function submitForms() {
   document.getElementById("id").submit();
   document.getElementById("restaurant").submit('');

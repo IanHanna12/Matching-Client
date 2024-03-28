@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PublicKey;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class UserService {
         }
         return userList;
     }
+
 
     public void WritematchedUserstoJSON(ObjectMapper mapper) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
@@ -127,19 +129,20 @@ public class UserService {
         return matcheduserList;
     }
 
-    private void validateUser(User user) {
-        if (user.getID() == null || user.getName() == null) {
-            throw new IllegalStateException("User ID or Name is null");
-        } else if (user.getID().isEmpty() || user.getName().isEmpty()) {
-            throw new IllegalStateException("User ID or Name is empty");
+    private User validateUser(User user) {
+        String userenteredID = "";
+        if (user.getName() == null || user.getName().isBlank()) {
+            throw new IllegalStateException("User name is missing");
         }
-        if (user.getID() != null && user.getName().equals(user.getID() + user.getName())) {
-            throw new IllegalStateException("Users are the same and cant be matched");
+        if (user.getID() == null || user.getID().isBlank()) {
+            throw new IllegalStateException("User ID is missing");
         }
+
+        if (user.getID().equals(userenteredID)) {
+            return user;
+        }
+        return null;
     }
 
-    public List<User> getMatchedUsers(List<User> matcheduserList) {
-        return matcheduserList;
-    }
 }
 

@@ -36,13 +36,29 @@
     }
 
 
-        $(document).ready(function(){
-            $("submitbutton").click(function(){
-              alert("Vorname wurde gespeichert");
-            });
-        });
-
-
+       $(document).ready(function(){
+           $("submitbutton").click(function(){
+               $.ajax({
+                   url: '/matchUsers',
+                   type: 'GET',
+                   success: function(user) {
+                       try {
+                           let validatedUser = validateUser(user);
+                           if (validatedUser) {
+                               console.log("User is valid: ", validatedUser);
+                           } else {
+                               console.error("User is not valid");
+                           }
+                       } catch (error) {
+                           console.error(error.message);
+                       }
+                   },
+                   error: function(jqXHR, textStatus, errorThrown) {
+                       console.error("Request failed: ", textStatus, errorThrown);
+                   }
+               });
+           });
+       });
     </script>
 </head>
 <body>
