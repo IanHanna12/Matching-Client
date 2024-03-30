@@ -1,30 +1,14 @@
 <!DOCTYPE html>
-<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>lunch roulette</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="css.css">
     <script src="js.js"></script>
     <script src="Jquery.js"></script>
-       <script>function submitForms() {
-        document.getElementById("id").submit();
-        document.getElementById("restaurant").submit('')
-    }
-    function validateForm() {
-        let x = document.forms["myForm"]["fname"].value;
-        if (x === "") {
-            alert("Name must be filled out");
-
-            return false;
-        }
-    }
-       </script>
 </head>
-
 <body>
-
 <section class="Titel">
     <div class="Inhalt">
         <h1>Lunch Roulette</h1>
@@ -35,7 +19,7 @@
 </pre>
         <b id="Anmelden"> Bitte Restaurant, ID und Essenszeit angeben</b>
         <div class="Eingabe">
-            <form id="restaurant" action="/submit1" onsubmit="return validateForm()" method="post">
+            <form id="restaurant" action="/submit1" method="post">
                 <select id="restaurantdrop" name="Restaurants">
                     <option value="Restaurant wählen">Restaurant wählen</option>
                     <option value="Stiftsberg">Stiftsberg</option>
@@ -51,52 +35,39 @@
                     <option value=" Cäcille">Cäcille</option>
                 </select>
             </form>
-            <form id="id" action="/submit2" onsubmit="return validateForm()" method="post"
-                  style="font-size: large">
-                <input id="idinput" type="text" name="UserID" placeholder="Deine ID">
+            <form id="id" action="/submit2" method="post">
+                <input id="idinput" type="text" name="UserID" placeholder="Deine ID" class="input-field">
             </form>
-
-            <form id="timeUser" action="/submit2" onsubmit="return validateForm()" method="post"
-                  style="font-size: large">
-                <input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit">
+            <form id="timeUser" action="/submit2" method="post">
+                <input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit" class="input-field">
             </form>
-
-            <button onclick="findmatchajax()" id="submitbutton">Submit</button>
-<button onclick="zeigeAlert()" id="alert button">Alert</button>
+            <button id="matchUsers" onclick="findmatchajax()">match Users</button>
+            <button id="matchUsersrandomly" onclick="findRandomMatchAjax()">match Users randomly</button>
         </div>
-
     </div>
 </section>
-
-
-
-
 <section class="Matching">
-
     <div class="Matching-Inhalt">
-
-    <pre class="random">
-
-              <button id="randombutton" onclick="generateRandomNumber()"> Zufälliger Kollege</button>
-         <form id="idmatch" onsubmit="return validateForm()" method="post"
-               style="font-size: large">
-        <input id="idinputmatch" type="text" name="UserID" placeholder="MatchID">
-      </form>
-
-
-      <video width="640" height="360" controls>
-        <source src="vecteezy_risking-your-fortune-or-gambling-at-a-casino-roulette-type_7173385.mov" type="video/quicktime">hallo
-      </video>
-    </pre>
+        <pre class="random">
+            <p id="randomMatchedUserDisplay"></p>
+            <video width="640" height="360" controls>
+                <source src="vecteezy_risking-your-fortune-or-gambling-at-a-casino-roulette-type_7173385.mov"
+                        type="video/quicktime">
+            </video>
+        </pre>
+        <div id="resultContainer" class="result">
+            <h2>Matched User</h2>
+            <p id="matchedUser"></p>
+            <input type="text" id="matchedUserInput" name="matchedUser" placeholder="Matched User">
+            <p id="matchedUserResult"></p> <!-- New paragraph for the entire result of the findmatchajax() function -->
+        </div>
+        <div id="randomResultContainer" class="result">
+            <h2>Randomly Matched User</h2>
+            <p id="randomMatchedUser"></p>
+            <input type="text" id="randomMatchedUserInput" name="randomMatchedUser" placeholder="Randomly Matched User">
+            <p id="randomMatchedUserResult"></p> <!-- New paragraph for the entire result of the findRandomMatchAjax() function -->
+        </div>
     </div>
 </section>
-
-<script>
-
-</script>
-
-
 </body>
 </html>
-
-

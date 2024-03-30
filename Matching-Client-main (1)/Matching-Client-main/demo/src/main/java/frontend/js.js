@@ -1,5 +1,3 @@
-
-
 function submitForms() {
   document.getElementById("id").submit();
   document.getElementById("restaurant").submit('');
@@ -13,18 +11,17 @@ function validateForm() {
   }
 }
 
-
-function alert() {
+function showAlert() {
   alert("So geht es");
 }
+
 function zeigeAlert() {
   alert("Button wurde geklickt!");
 }
 
-
-function  getUsers() {
+function getUsers() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://localhost:8080/Helloworld', true);
+  xhr.open('GET', 'http://localhost:8080/getUsers', true);
   xhr.onload = function() {
     if (xhr.status >= 200 && xhr.status < 300) {
       var users = JSON.parse(xhr.responseText);
@@ -39,45 +36,66 @@ function  getUsers() {
   xhr.send();
 }
 
-function findmatch () {
-    var timeUser = document.getElementById('timeinput').value;
 
-
-}
-
-function findmatch2() {
-
-  var timeUser = document.getElementById('timeinput').value;
-  const url = 'http://localhost:8080/users'; // Replace with the actual URL
-  const data = {
-    timeUser
-  };
-
-
-}
 
 function findmatchajax() {
-  const url = 'http://localhost:8080/Helloworld';
-
-  var timeUser = document.getElementById('timeinput').value;
+  var enteredTime = document.getElementById('timeinput').value;
+  var url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({ time: enteredTime }));
 
   $.ajax({
-    type: "GET",
-    url: url,
-    data: JSON.stringify({ timeUser: timeUser }),
-    contentType: 'application/json',
-    success: function(jsonData) {
+      type: "GET",
+      url: url,
+      contentType: 'application/json',
+      success: function(response) {
+          console.log(response);
+          if(response.length > 0) {
+              var matchedUserNames = response.map(user => user.name).join(', ');
 
-      if (jsonData.times.includes(timeUser)) {
-        document.getElementById('idinputmatch').value = 'Match gefunden mit:';
-      } else {
-        document.getElementById('idinputmatch').value = 'Kein Match gefunden';
+              // Set the value of the "matchedUserInput" textbox to the names of all matched users
+              document.getElementById('matchedUserInput').value = matchedUserNames;
+
+              // Set the text content of the "matchedUser" paragraph to the names of all matched users
+              document.getElementById('matchedUser').textContent = matchedUserNames;
+
+              // Set the text content of the "matchedUserResult" paragraph to the entire result
+              document.getElementById('matchedUserResult').textContent = JSON.stringify(response, null, 2);
+          } else {
+              alert('No users found with the entered time');
+          }
+      },
+      error: function(error) {
+          console.error(error);
       }
-    },
-    error: function(xhr, status, error) {
-      console.error('Error:', error);
-    }
   });
 }
 
+function findRandomMatchAjax() {
+  var url = 'http://localhost:8080/matchusersRandomly';
 
+  $.ajax({
+      type: "GET",
+      url: url,
+      contentType: 'application/json',
+      success: function(response) {
+          console.log(response);
+          if(response.length > 0) {
+              var matchedUserNames = response.map(user => user.name).join(', ');
+
+              // Set the value of the "randomMatchedUserInput" textbox to the names of all matched users
+              document.getElementById('randomMatchedUserInput').value = matchedUserNames;
+
+              // Set the text content of the "randomMatchedUserResult" paragraph to the entire result
+              document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(response, null, 2);
+          } else {
+              alert('No users found');
+          }
+      },
+      error: function(error) {
+          console.error(error);
+      }
+  });
+}
+
+// Bind the functions to the onclick events of the buttons
+document.getElementById('matchUsers').onclick = findmatchajax;
+document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
