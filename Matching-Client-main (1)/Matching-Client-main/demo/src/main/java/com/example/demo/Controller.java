@@ -55,7 +55,7 @@ public class Controller {
     }
 
 
-    @GetMapping("/readUsers")
+    @GetMapping("/readUsers") //Port: http://localhost:8080/readUsers
     public List<User> readUsersFromJson() {
         return userService.readUsersfromJSON();
     }

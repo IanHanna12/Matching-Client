@@ -41,7 +41,7 @@ public class UserService {
                     User user = generateRandomUser();
                     users.add(user);
                 }
-                mapper.writeValue(file, users);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, users);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
