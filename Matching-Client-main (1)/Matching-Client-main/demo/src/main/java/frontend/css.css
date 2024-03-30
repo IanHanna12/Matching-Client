@@ -1,156 +1,86 @@
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --font-size-large: 30px;
+}
+
 body {
-  background-color: #dcdff5;
+  background-color: #ecf0f1;
   text-align: center;
+  font-family: Arial, sans-serif;
 }
-.Titel {
-  height: 20rem;
-  margin-bottom: 5rem;
-  margin-left: 10px;
-  margin-right: 10px;
 
+.Titel, .Matching-Inhalt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
   border-radius: 10px;
-  padding-top: 10px;
-  padding-right: 100px;
-  padding-left: 100px;
+  padding: 30px;
+  margin: 5rem 10px;
+  color: white;
 }
-.Inhalt {
-  border-radius: 10px; /* Abrundung der Ecken des Kastens */
-  background-color: cadetblue;
-  padding-right: 50px;
-  padding-left: 50px;
-  padding-bottom: 30px;
-  text-align: center;
-  margin-bottom: 100px;
-}
-
 
 h1 {
-  color: black;
+  color: var(--secondary-color);
   font-size: 60px;
-  height: 50px;
-  margin-left: 130px;
-  margin-right: 130px;
-  text-align: center;
-  padding-top: 30px;
+}
 
-}
 #A {
-  font-style: normal;
-  font-size: 40px;
+  font-size: var(--font-size-large);
   text-align: center;
 }
-#Anmelden{
+
+#Anmelden {
   text-align: center;
   font-size: large;
 }
 
-
-#restaurantdrop {
+#restaurantdrop, #idinput, #idinputmatch, #timeinput {
   width: 315px;
   height: 50px;
   font-size: large;
+  margin-bottom: 10px;
 }
 
-#idinput {
-  width: 305px;
-  height: 50px;
-  font-size: medium;
-}
-
-
-#idinputmatch{
-  width: 305px;
-  height: 50px;
-  font-size: large;
-  justify-content: center;
-  align-items: center;
-}
-#timeinput {
-  width: 305px;
-  height: 50px;
-  font-size: large;
-}
-
-#submitbutton{
+button {
   width: 200px;
   height: 40px;
   font-size: large;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-
-p {
-  text-align: center;
+button:hover {
+  background-color: #34495e;
 }
 
 .random {
-  background-color: cadetblue;
-  color: black;
-  font-style: oblique;
+  background-color: var(--primary-color);
+  color: white;
   font-size: 20px;
-  margin-left: 110px;
-  margin-right: 110px;
-  margin-top: 450px;
   border-radius: 10px;
-  padding-top: 100px;
-  padding-right: 100px;
+  padding: 100px;
+  margin: 0 110px 450px;
 }
 
+@media screen and (max-width: 600px) {
+  .Titel, .Matching-Inhalt {
+    padding: 20px;
+    margin: 2rem 5px;
+  }
 
-#B {
-  font-style: normal;
-  font-size: 30px;
-  text-align: center;
-}
+  #restaurantdrop, #idinput, #idinputmatch, #timeinput {
+    width: 100%;
+  }
 
-#C, D, E, F {
-  font-style: normal;
-  font-size: 30px;
-  text-align: center;
-}
-#randombutton{
-  width: 200px;
-  height: 40px;
-  font-size: large;
-  justify-content: center;
-  align-items: center;
-}
-
-#vornameinput2 {
-  width: 305px;
-  height: 50px;
-  font-size: large;
-
-}
-
-#nachnameinput2 {
-  width: 305px;
-  height: 50px;
-  font-size: large;
-
-}
-
-
-.Erklärung {
-  text-align: justify;
-}
-
-.Matching-Inhalt{
-  border-radius: 10px; /* Abrundung der Ecken des Kastens */
- /* padding-right: 50px;
-  padding-left: 50px; */
-  padding-bottom: 30px;
-  text-align: center;
-  margin-bottom: 100px;
-  margin-right: 50px;
-}
-
-#idmatch{
-
-
-
-
-}
-/* Deine CSS-Regeln hier */
-button:hover {
-  background-color: lightblue;
+  .random {
+    margin: 0 10px 200px;
+    padding: 50px;
+  }
 }

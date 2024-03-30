@@ -11,13 +11,7 @@ function validateForm() {
   }
 }
 
-function showAlert() {
-  alert("So geht es");
-}
 
-function zeigeAlert() {
-  alert("Button wurde geklickt!");
-}
 
 function getUsers() {
   var xhr = new XMLHttpRequest();
@@ -49,7 +43,15 @@ function findmatchajax() {
       success: function(response) {
           console.log(response);
           if(response.length > 0) {
-              var matchedUserNames = response.map(user => user.name).join(', ');
+              // Filter out duplicate IDs
+              var uniqueUsers = [];
+              response.forEach(user => {
+                  if (!uniqueUsers.find(u => u.ID === user.ID)) {
+                      uniqueUsers.push(user);
+                  }
+              });
+
+              var matchedUserNames = uniqueUsers.map(user => user.name).join(', ');
 
               // Set the value of the "matchedUserInput" textbox to the names of all matched users
               document.getElementById('matchedUserInput').value = matchedUserNames;
@@ -58,7 +60,7 @@ function findmatchajax() {
               document.getElementById('matchedUser').textContent = matchedUserNames;
 
               // Set the text content of the "matchedUserResult" paragraph to the entire result
-              document.getElementById('matchedUserResult').textContent = JSON.stringify(response, null, 2);
+              document.getElementById('matchedUserResult').textContent = JSON.stringify(uniqueUsers, null, 2);
           } else {
               alert('No users found with the entered time');
           }
@@ -79,13 +81,21 @@ function findRandomMatchAjax() {
       success: function(response) {
           console.log(response);
           if(response.length > 0) {
-              var matchedUserNames = response.map(user => user.name).join(', ');
+              // Filter out duplicate IDs
+              var uniqueUsers = [];
+              response.forEach(user => {
+                  if (!uniqueUsers.find(u => u.ID === user.ID)) {
+                      uniqueUsers.push(user);
+                  }
+              });
+
+              var matchedUserNames = uniqueUsers.map(user => user.name).join(', ');
 
               // Set the value of the "randomMatchedUserInput" textbox to the names of all matched users
               document.getElementById('randomMatchedUserInput').value = matchedUserNames;
 
               // Set the text content of the "randomMatchedUserResult" paragraph to the entire result
-              document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(response, null, 2);
+              document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(uniqueUsers, null, 2);
           } else {
               alert('No users found');
           }
@@ -98,4 +108,6 @@ function findRandomMatchAjax() {
 
 // Bind the functions to the onclick events of the buttons
 document.getElementById('matchUsers').onclick = findmatchajax;
+
+//fix duped users. //a lot of users are shown twice
 document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
