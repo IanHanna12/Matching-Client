@@ -84,4 +84,12 @@ button: hover {
     margin: 0 10px 200px;
     padding: 50px;
   }
+
+  #resultContainer, #randomResultContainer {
+      margin-top: -100px;
+  }
+
+  .random {
+      margin-top: -200px;
+  }
 }
