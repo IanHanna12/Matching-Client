@@ -39,7 +39,7 @@ function getUsers() {
 
 var uniqueUsers = [];
 
-// Function to write matched users to JSON file
+
 function writeMatchedUsersToJSON(user) {
     let enteredId = document.getElementById('idinput').value;
     let data = {
@@ -117,6 +117,6 @@ function findRandomMatchAjax() {
     });
 }
 
-// Bind the functions to the onclick events of the buttons
+// Bind the functions to the onclick events
 document.getElementById('matchUsers').onclick = findMatchAjax;
 document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
