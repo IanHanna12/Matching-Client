@@ -1,18 +1,14 @@
 package com.example.demo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.origin.Origin;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,7 +46,7 @@ public class Controller {
 
     @PutMapping("getmatchedUsers")
     public List<User> getMatchedUsers() {
-        return userService.ReadmatchedUsersfromJSON(users);
+        return userService.ReadmatchedUsersfromJSON();
     }
 
     @PostMapping("/writeUsers")
@@ -90,18 +86,12 @@ public class Controller {
 
 
     @PostMapping("/writeMatchedUsers")
-    public void writeMatchedUsersToJson() {
-        userService.WritematchedUserstoJSON((ObjectMapper) users);
+    public void writeMatchedUsers(@RequestBody List<User> uniqueUsers) {
+        userService.writeMatchedUsersToJSON(uniqueUsers);
     }
-
     @GetMapping("/readMatchedUsers")
     public List<User> readMatchedUsersFromJson() {
-        return userService.ReadmatchedUsersfromJSON(users);
+        return userService.ReadmatchedUsersfromJSON();
     }
 
-    @GetMapping("/Helloworld")
-    public String HelloWorld() {
-        return "Hello World";
-    }
 }
-

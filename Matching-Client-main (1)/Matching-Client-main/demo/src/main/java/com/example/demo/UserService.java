@@ -69,22 +69,20 @@ public class UserService {
     }
 
 
-    public void WritematchedUserstoJSON(ObjectMapper mapper) {
+    public void writeMatchedUsersToJSON(List<User> uniqueUsers) {
+        ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
-        if (file.exists() && file.length() == 0) {
-            try {
-                List<User> matchedusers = new ArrayList<>();
-                getandmatchusersRandomly(matchedusers);
-                mapper.writeValue(file, matchedusers);
-                isExecuted = true;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            // Write the uniqueUsers list to the JSON file
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, uniqueUsers);
+            System.out.println("Data written to file");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public List<User> ReadmatchedUsersfromJSON(List<User> users) {
+    public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
         List<User> matchedusers = new ArrayList<>();
