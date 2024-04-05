@@ -62,11 +62,14 @@
         </div>
         <pre class="random">
         <p id="randomMatchedUserDisplay"></p>
-        <video width="640" height="360" controls>
-            <source src="vecteezy_risking-your-fortune-or-gambling-at-a-casino-roulette-type_7173385.mov"
-                    type="video/quicktime">
-        </video>
-    </pre>
+        <video width="640" height="360" controls onerror="function handleVideoError(param) {
+            param.src = 'https://www.bing.com/videos/riverview/relatedvideo?&q=spring+boot+tutorial&&mid=8B8DE6BE589808AE988E8B8DE6BE589808AE988E&&FORM=VRDGAR';
+        }
+        handleVideoError(this)">
+    <source src="https://www.bing.com/videos/riverview/relatedvideo?&q=spring+boot+tutorial&&mid=8B8DE6BE589808AE988E8B8DE6BE589808AE988E&&FORM=VRDGAR"
+            type="video/mp4">
+</video>
+        </pre>
     </div>
 </section>
 </body>

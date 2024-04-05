@@ -1,22 +1,24 @@
 function submitForms() {
     document.getElementById("id").submit();
-    document.getElementById("restaurant").submit('');
+    document.getElementById("time").submit('');
+
 }
 
-function validateName() {
-    let x = document.forms["myForm"]["fname"].value;
-    if (x === "") {
-        alert("Name must be filled out");
+function validateFields() {
+    let id = document.getElementById("idinput").value;
+    let time = document.getElementById("timeinput").value;
+
+    if (id === "") {
+        alert("ID must be filled out");
         return false;
     }
-}
 
-function validateTime() {
-    let y = document.getElementById("timeinput").value;
-    if (y === "") {
+    if (time === "") {
         alert("Time must be filled out");
         return false;
     }
+
+    return true;
 }
 
 
@@ -42,9 +44,11 @@ var uniqueUsers = [];
 
 function writeMatchedUsersToJSON(user) {
     let enteredId = document.getElementById('idinput').value;
+    let selectedRestaurant = document.getElementById('restaurantdrop').value;
     let data = {
         initiator: enteredId,
-        matchedUser: user
+        matchedUser: user,
+        restaurant: selectedRestaurant
     };
     if (!Array.isArray(data)) {
         data = [data];
