@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -69,16 +70,16 @@ public class UserService {
     }
 
 
-    public void writeMatchedUsersToJSON(List<User> uniqueUsers) {
-        ObjectMapper mapper = new ObjectMapper();
+    public void WritematchedUserstoJSON(List<User> uniqueUsers) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
         try {
-            // Write the uniqueUsers list to the JSON file
+            ObjectMapper mapper = new ObjectMapper();
+            // Always write as a list
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, uniqueUsers);
-            System.out.println("Data written to file");
+            isExecuted = true;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -88,7 +89,7 @@ public class UserService {
         List<User> matchedusers = new ArrayList<>();
         if (file.exists() && file.length() != 0) {
             try {
-                matchedusers = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+                matchedusers = mapper.readValue(file, new TypeReference<List<User>>(){});
                 userList.addAll(matchedusers);
                 isExecuted = true;
             } catch (IOException e) {

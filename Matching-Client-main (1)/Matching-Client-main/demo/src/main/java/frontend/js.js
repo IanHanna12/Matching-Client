@@ -32,12 +32,16 @@ function getUsers() {
 
 var uniqueUsers = [];
 
-function writematchedusersToJSON(uniqueUsers) {
+function writematchedusersToJSON(user) {
+    if (!Array.isArray(user)) {
+        user = [user];
+    }
+
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/writeMatchedUsers',
         contentType: 'application/json',
-        data: JSON.stringify(uniqueUsers),
+        data: JSON.stringify(user),
         success: function(response) {
             console.log('Data written to file');
         },
@@ -47,6 +51,7 @@ function writematchedusersToJSON(uniqueUsers) {
     });
 }
 
+// Function to find matched users based on entered time
 // Function to find matched users based on entered time
 function findmatchajax() {
     var enteredTime = document.getElementById('timeinput').value;
@@ -59,29 +64,22 @@ function findmatchajax() {
         success: function(response) {
             console.log(response);
             if(response.length > 0) {
-                // Filter out duplicate IDs
-                response.forEach(user => {
-                    if (!uniqueUsers.find(u => u.ID === user.ID)) {
-                        uniqueUsers.push(user);
-                    }
-                });
+                // Get the first matched user
+                var matchedUser = response[0];
 
-                var matchedUserNames = uniqueUsers.map(user => user.name).join(', ');
+                // Set the value of the "matchedUserInput" textbox to the name of the matched user
+                document.getElementById('matchedUserInput').value = matchedUser.name;
 
-                // Set the value of the "matchedUserInput" textbox to the names of all matched users
-                document.getElementById('matchedUserInput').value = matchedUserNames;
+                // Set the text content of the "matchedUser" paragraph to the name of the matched user
+                document.getElementById('matchedUser').textContent = matchedUser.name;
 
-                // Set the text content of the "matchedUser" paragraph to the names of all matched users
-                document.getElementById('matchedUser').textContent = matchedUserNames;
+                // Set the text content of the "matchedUserResult" paragraph to the matched user
+                document.getElementById('matchedUserResult').textContent = JSON.stringify(matchedUser, 2);
 
-                if (uniqueUsers.length > 0) {
-                    document.getElementById('matchedUserResult').textContent = JSON.stringify(uniqueUsers, null, 2);
-                }
+                writematchedusersToJSON(matchedUser);
             } else {
                 alert('No users found with the entered time');
             }
-
-            writematchedusersToJSON(uniqueUsers);
         },
         error: function(error) {
             console.error(error);
@@ -90,7 +88,7 @@ function findmatchajax() {
 }
 
 // Function to find random matched users
-function findRandomMatchAjax (writematchedusersToJSON) {
+function findRandomMatchAjax () {
     var url = 'http://localhost:8080/matchusersRandomly';
 
     $.ajax({
@@ -100,30 +98,19 @@ function findRandomMatchAjax (writematchedusersToJSON) {
         success: function(response) {
             console.log(response);
             if(response.length > 0) {
-                // Filter out duplicate IDs
-                response.forEach(user => {
-                    if (!uniqueUsers.find(u => u.ID === user.ID)) {
-                        uniqueUsers.push(user);
-                    }
-                });
+                // Get the first matched user
+                var matchedUser = response[0];
 
-                // Get the names of all unique users
-                var matchedUserNames = uniqueUsers.map(user => user.name);
+                // Set the value of the "randomMatchedUserInput" textbox to the name of the matched user
+                document.getElementById('randomMatchedUserInput').value = matchedUser.name;
 
-                // Set the value of the "randomMatchedUserInput" textbox to the first user's name
-                if(matchedUserNames.length > 0) {
-                    document.getElementById('randomMatchedUserInput').value = matchedUserNames[0];
-                }
+                // Set the text content of the "randomMatchedUserResult" paragraph to the matched user
+                document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(matchedUser, 2);
 
-                // Set the text content of the "randomMatchedUserResult" paragraph to the first user
-                if(uniqueUsers.length > 0) {
-                    document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(uniqueUsers[0], 2);
-                }
+                writematchedusersToJSON(matchedUser);
             } else {
                 alert('No users found');
             }
-
-            writematchedusersToJSON(uniqueUsers);
         },
         error: function(error) {
             console.error(error);

@@ -87,7 +87,7 @@ public class Controller {
 
     @PostMapping("/writeMatchedUsers")
     public void writeMatchedUsers(@RequestBody List<User> uniqueUsers) {
-        userService.writeMatchedUsersToJSON(uniqueUsers);
+        userService.WritematchedUserstoJSON(uniqueUsers);
     }
     @GetMapping("/readMatchedUsers")
     public List<User> readMatchedUsersFromJson() {

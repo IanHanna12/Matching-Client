@@ -57,7 +57,7 @@ button {
 
 }
 
-button: hover {
+button:hover {
   background-color: #34495e;
   cursor: pointer;
 }
