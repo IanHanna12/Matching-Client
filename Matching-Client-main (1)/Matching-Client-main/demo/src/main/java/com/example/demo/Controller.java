@@ -23,17 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-    private final UserService userService;
-    private final List<User> users;
+    private final com.example.demo.userService userService;
+    private final List<User> Users;
 
-    public Controller(UserService userService, List<User> users) {
+    public Controller(com.example.demo.userService userService, List<User> Users) {
         this.userService = userService;
-        this.users = users;
+        this.Users = Users;
     }
 
     @GetMapping("/matchusersRandomly")
     public List<User> matchUsersRandomly() {
-        return userService.getandmatchusersRandomly(users);
+        return userService.getandmatchusersRandomly(Users);
     }
 
 
@@ -41,7 +41,7 @@ public class Controller {
 
     @GetMapping("/matchUsers")
     public List<User> matchUsers() {
-        return userService.getandmatchUsers(users);
+        return userService.getandmatchUsers(Users);
     }
 
     @PutMapping("getmatchedUsers")
@@ -73,7 +73,7 @@ public class Controller {
             jsonNode = objectMapper.readTree(decodedData);
             String time = jsonNode.get("time").asText();
             return userService.readUsersfromJSON().stream()
-                    .filter(user -> user.getUsertime().equals(time))
+                    .filter(User -> User.getUsertime().equals(time))
                     .collect(Collectors.toList());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -85,9 +85,10 @@ public class Controller {
 
 
 
+    // Modified method in the Controller class
     @PostMapping("/writeMatchedUsers")
-    public void writeMatchedUsers(@RequestBody List<User> uniqueUsers) {
-        userService.WritematchedUserstoJSON(uniqueUsers);
+    public void writeMatchedUsers(@RequestBody List<Match> matches) {
+        userService.WritematchedUserstoJSON(matches);
     }
     @GetMapping("/readMatchedUsers")
     public List<User> readMatchedUsersFromJson() {

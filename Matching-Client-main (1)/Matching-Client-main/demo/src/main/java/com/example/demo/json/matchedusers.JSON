@@ -1,5 +1,8 @@
 [ {
-  "time" : "13:57",
-  "name" : "User11",
-  "ID" : "48"
+  "initiator" : "15",
+  "matchedUser" : {
+    "time" : "13:31",
+    "name" : "User53",
+    "ID" : "20"
+  }
 } ]

@@ -13,12 +13,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 @Service
-public class UserService {
+public class userService {
 
     boolean isExecuted;
     private final List<User> userList;
 
-    public UserService(List<User> userList) {
+    public userService(List<User> userList) {
         this.userList = userList;
     }
 
@@ -40,12 +40,12 @@ public class UserService {
         ObjectMapper mapper = new ObjectMapper();
         if (file.exists() && file.length() == 0) {
             try {
-                List<User> users = new ArrayList<>();
+                List<User> Users = new ArrayList<>();
                 for (int i = 0; i <= 100; i++) {
                     User user = generateRandomUser();
-                    users.add(user);
+                    Users.add(user);
                 }
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, users);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, Users);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -59,8 +59,8 @@ public class UserService {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         if (file.exists() && file.length() != 0) {
             try {
-                List<User> users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-                userList.addAll(users);
+                List<User> Users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+                userList.addAll(Users);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -70,7 +70,7 @@ public class UserService {
     }
 
 
-    public void WritematchedUserstoJSON(List<User> uniqueUsers) {
+    public void WritematchedUserstoJSON(List<Match> uniqueUsers) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
         try {
@@ -100,16 +100,16 @@ public class UserService {
     }
 
     public List<User> getandmatchusersRandomly(List<User> matcheduserList) {
-        List<User> users = new ArrayList<>(userList);
-        if (users.size() < 2) {
-            throw new IllegalStateException("Not enough users to match");
+        List<User> Users = new ArrayList<>(userList);
+        if (Users.size() < 2) {
+            throw new IllegalStateException("Not enough users to Match");
         }
-        while (!users.isEmpty()) {
-            int randomIndex = ThreadLocalRandom.current().nextInt(users.size());
-            matcheduserList.add(users.remove(randomIndex));
-            if (!users.isEmpty()) {
-                randomIndex = ThreadLocalRandom.current().nextInt(users.size());
-                matcheduserList.add(users.remove(randomIndex));
+        while (!Users.isEmpty()) {
+            int randomIndex = ThreadLocalRandom.current().nextInt(Users.size());
+            matcheduserList.add(Users.remove(randomIndex));
+            if (!Users.isEmpty()) {
+                randomIndex = ThreadLocalRandom.current().nextInt(Users.size());
+                matcheduserList.add(Users.remove(randomIndex));
             }
         }
         return matcheduserList;
@@ -117,13 +117,13 @@ public class UserService {
 
 
     public List<User> getandmatchUsers(List<User> matcheduserList) {
-        List<User> users = new ArrayList<>(userList);
-        if (users.size() < 2) {
-            throw new IllegalStateException("Not enough users to match");
+        List<User> Users = new ArrayList<>(userList);
+        if (Users.size() < 2) {
+            throw new IllegalStateException("Not enough users to Match");
         }
-        while (!users.isEmpty()) {
-            User user1 = users.removeFirst();
-            User user2 = users.removeFirst();
+        while (!Users.isEmpty()) {
+            User user1 = Users.removeFirst();
+            User user2 = Users.removeFirst();
             validateUser(user1);
             validateUser(user2);
             matcheduserList.add(user1);
