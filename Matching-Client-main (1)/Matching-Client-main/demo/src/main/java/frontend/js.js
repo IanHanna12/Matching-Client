@@ -3,10 +3,18 @@ function submitForms() {
     document.getElementById("restaurant").submit('');
 }
 
-function validateForm() {
+function validateName() {
     let x = document.forms["myForm"]["fname"].value;
     if (x === "") {
         alert("Name must be filled out");
+        return false;
+    }
+}
+
+function validateTime() {
+    let y = document.getElementById("timeinput").value;
+    if (y === "") {
+        alert("Time must be filled out");
         return false;
     }
 }
@@ -17,7 +25,7 @@ function getUsers() {
     xhr.open('GET', 'http://localhost:8080/getUsers', true);
     xhr.onload = function () {
         if (xhr.status >= 200 && xhr.status < 300) {
-            var users = JSON.parse(xhr.responseText);
+            const users = JSON.parse(xhr.responseText);
             document.getElementById('idinputmatch').value = JSON.stringify(users, null, 2);
         } else {
             console.error('Request failed with status:', xhr.status);
@@ -46,7 +54,7 @@ function writeMatchedUsersToJSON(user) {
         url: 'http://localhost:8080/writeMatchedUsers',
         contentType: 'application/json',
         data: JSON.stringify(data),
-        success: function (response) {
+        success: function () {
             console.log('Data written to file');
         },
         error: function (error) {
