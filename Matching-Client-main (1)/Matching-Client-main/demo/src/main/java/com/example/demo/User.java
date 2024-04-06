@@ -27,6 +27,7 @@ public class User {
 
     public User() {
     }
+
     // Constructor with parameters
     public User(String name, String ID, String time) {
         this.name = name;
@@ -35,17 +36,7 @@ public class User {
 
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-
-
     public String getUsertime() {
-       return time;
+        return time;
     }
 }

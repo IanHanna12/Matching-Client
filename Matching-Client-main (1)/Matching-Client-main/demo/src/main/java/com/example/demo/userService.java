@@ -75,7 +75,6 @@ public class userService {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            // Always write as a list
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, uniqueUsers);
             isExecuted = true;
         } catch (IOException e) {
