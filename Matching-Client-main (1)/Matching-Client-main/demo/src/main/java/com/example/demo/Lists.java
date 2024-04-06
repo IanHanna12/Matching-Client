@@ -8,9 +8,13 @@ public class Lists {
 
     public List<User> matcheduserList;
 
-    public List<User> userList = new ArrayList<>();
 
     public List<Match> uniqueUsers = new ArrayList<>();
+    public List<Match> matchedusers = new ArrayList<>(uniqueUsers);
 
 
-}
+    public List<User> Users = new ArrayList<>();
+
+    }
+
+

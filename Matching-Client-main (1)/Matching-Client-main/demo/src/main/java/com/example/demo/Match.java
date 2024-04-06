@@ -5,7 +5,7 @@ public class Match {
         private String initiator;
         private User matchedUser;
 
-        // Getters and setters
+
         public String getInitiator() {
             return initiator;
         }
