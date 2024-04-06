@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class Controller {
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
     private final com.example.demo.userService userService;
     private final List<User> Users;
@@ -58,11 +60,13 @@ public class Controller {
         try {
             jsonNode = objectMapper.readTree(decodedData);
             String time = jsonNode.get("time").asText();
-            return userService.readUsersfromJSON().stream()
+            List<User> users = userService.readUsersfromJSON().stream()
                     .filter(User -> User.getUsertime().equals(time))
                     .collect(Collectors.toList());
+            logger.info("Successfully read users from JSON and filtered by time: {}", time);
+            return users;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error("Error while reading users from JSON and filtering by time", e);
             return Collections.emptyList();
         }
     }
