@@ -132,13 +132,13 @@ public class userService {
         return matcheduserList;
     }
 
-    private User validateUser(User user) {
+    private void validateUser(User user) {
         String Inputtime = user.getUsertime();
         if (Inputtime == null) {
             throw new IllegalStateException("User has no time");
         }
         if (Inputtime.equals(user.getUsertime())) {
-            return user;
+            return;
         }
         throw new IllegalStateException("User not added");
     }
