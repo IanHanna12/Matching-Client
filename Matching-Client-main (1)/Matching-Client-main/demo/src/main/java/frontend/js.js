@@ -38,10 +38,6 @@ function getUsers() {
     };
     xhr.send();
 }
-
-var uniqueUsers = [];
-
-
 function writeMatchedUsersToJSON(user) {
     let enteredId = document.getElementById('idinput').value;
     let selectedRestaurant = document.getElementById('restaurantdrop').value;
