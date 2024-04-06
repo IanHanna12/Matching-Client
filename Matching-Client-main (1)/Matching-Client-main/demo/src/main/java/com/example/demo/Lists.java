@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lists {
-    List<User> Users = new ArrayList<>();
+    List<User> users = new ArrayList<>();
 
     public List<User> matcheduserList;
+
+    public List<User> userList = new ArrayList<>();
+
+    public List<Match> uniqueUsers = new ArrayList<>();
+
+
 }

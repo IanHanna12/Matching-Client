@@ -21,4 +21,9 @@ public class Match {
         public void setMatchedUser(User matchedUser) {
             this.matchedUser = matchedUser;
         }
+
+        public Match(String initiator, User matchedUser) {
+            this.initiator = initiator;
+            this.matchedUser = matchedUser;
+        }
     }

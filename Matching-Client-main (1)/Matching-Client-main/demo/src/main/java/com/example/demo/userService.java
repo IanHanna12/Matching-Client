@@ -89,7 +89,8 @@ public class userService {
         List<User> matchedusers = new ArrayList<>();
         if (file.exists() && file.length() != 0) {
             try {
-                matchedusers = mapper.readValue(file, new TypeReference<List<User>>(){});
+                matchedusers = mapper.readValue(file, new TypeReference<List<User>>() {
+                });
                 userList.addAll(matchedusers);
                 isExecuted = true;
             } catch (IOException e) {
@@ -133,7 +134,7 @@ public class userService {
     }
 
     private User validateUser(User user) {
-        String Inputtime= user.getUsertime();
+        String Inputtime = user.getUsertime();
         if (Inputtime == null) {
             throw new IllegalStateException("User has no time");
         }

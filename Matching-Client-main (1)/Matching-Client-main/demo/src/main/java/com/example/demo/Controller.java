@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
-
-@CrossOrigin(origins = "*" , allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class Controller {
 
@@ -37,8 +35,6 @@ public class Controller {
     }
 
 
-
-
     @GetMapping("/matchUsers")
     public List<User> matchUsers() {
         return userService.getandmatchUsers(Users);
@@ -53,16 +49,6 @@ public class Controller {
     public void writeUserstoJson() throws JsonProcessingException {
         userService.writeUserstoJSON();
     }
-
-    /*
-    @CrossOrigin(origins = "*")
-    @GetMapping("/readUsers") //Port: http://localhost:8080/readUsers
-    public List<User> readUsersFromJson() {
-        return userService.readUsersfromJSON();
-    }
-
-    */
-
 
     @GetMapping("/readUsers")
     public List<User> readUsersFromJson(@RequestParam String data) {
@@ -81,15 +67,11 @@ public class Controller {
         }
     }
 
-
-
-
-
-    // Modified method in the Controller class
     @PostMapping("/writeMatchedUsers")
     public void writeMatchedUsers(@RequestBody List<Match> matches) {
         userService.WritematchedUserstoJSON(matches);
     }
+
     @GetMapping("/readMatchedUsers")
     public List<User> readMatchedUsersFromJson() {
         return userService.ReadmatchedUsersfromJSON();
