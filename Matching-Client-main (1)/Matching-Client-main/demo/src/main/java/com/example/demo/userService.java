@@ -74,29 +74,33 @@ public class userService {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
-        // Read existing matches from the file
-        List<Match> existingMatches = new ArrayList<>();
-        if (file.exists() && file.length() != 0) {
+        // If the file does not exist or is empty, write the new matches to the file
+        if (!file.exists() || file.length() == 0) {
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
+                isExecuted = true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            // If the file exists and is not empty, read  existing matches
+            List<Match> existingMatches = new ArrayList<>();
             try {
                 existingMatches = mapper.readValue(file, new TypeReference<List<Match>>() {
                 });
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
+            // Append new unique matches to existing matches
+            for (Match newMatch : matchedusers) {
+                if (!existingMatches.contains(newMatch)) {
+                    existingMatches.add(newMatch);
+                }
+            }
 
-        // Append new matches to the existing ones
-        existingMatches.addAll(matchedusers);
 
-        // Write the updated list back to file
-        try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
-            isExecuted = true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } if (file.exists() && existingMatches.isEmpty()){
             try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);

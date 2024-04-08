@@ -22,6 +22,9 @@ public class Match {
             this.matchedUser = matchedUser;
         }
 
+        public Match() {
+        }
+
         public Match(String initiator, User matchedUser) {
             this.initiator = initiator;
             this.matchedUser = matchedUser;

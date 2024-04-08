@@ -75,9 +75,9 @@ function findMatchAjax() {
         contentType: 'application/json',
         success: function (response) {
             if (response.length > 0) {
-                let matchedUser = response[0];
+                let matchedUser = response;
                 matchedUser.matchedWith = enteredId;
-                document.getElementById('matchedUserInput').value = matchedUser.name;
+             //   document.getElementById('matchedUserInput').value = matchedUser.name;
                 document.getElementById('matchedUser').textContent = matchedUser.name;
                 document.getElementById('matchedUserResult').textContent = JSON.stringify(matchedUser, 2);
                 writeMatchedUsersToJSON(matchedUser);
@@ -108,7 +108,7 @@ function findRandomMatchAjax() {
                 let matchedUser = response[randIndex];
                 matchedUser.matchedWith = enteredId;
                 document.getElementById('randomMatchedUserInput').value = matchedUser.name;
-                document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(matchedUser, 2);
+                document.getElementById('randomMatchedUserInput').textContent = JSON.stringify(matchedUser, 2);
                 writeMatchedUsersToJSON(matchedUser);
             } else {
                 alert('No users found with the entered time');
@@ -128,32 +128,31 @@ function showUsersInDropdown() {
         type: "GET",
         url: url,
         dataType: 'json',
-        success: function(users) {
+        success: function (users) {
             const select = document.getElementById('dropdownMenufortimeMatchedUsers');
             // Clear  dropdown
             select.innerHTML = '';
 
-            // Filter out duplicate users based on their ID with reduce
-            let uniqueUsers = users.reduce((acc, current) => {
-                const x = acc.find(item => item.ID === current.ID);
+            let uniqueUsers = [];
+            for (let i = 0; i < users.length; i++) {
+                let current = users[i];
+                let x = uniqueUsers.find(uniqueName => uniqueName.name === current.name);
                 if (!x) {
-                    return acc.concat([current]);
-                } else {
-                    return acc;
+                    uniqueUsers.push(current);
                 }
-            }, []);
+            }
 
             uniqueUsers.forEach(user => {
                 const option = new Option(user.name, user.name);
                 select.add(option);
             });
         },
-        error: function(error) {
+        error: function (error) {
             console.error(error);
         }
     });
-}
 
 // Bind the functions to the onclick events
-document.getElementById('matchUsers').onclick = findMatchAjax;
-document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
+    document.getElementById('matchUsers').onclick = findMatchAjax;
+    document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
+}
