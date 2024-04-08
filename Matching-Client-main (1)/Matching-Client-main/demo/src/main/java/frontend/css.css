@@ -10,7 +10,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.Titel, .Matching-Inhalt {
+.Input, .Matching-Inhalt {
 
     align-items: center;
     justify-content: center;
@@ -56,18 +56,29 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #34495e;
+#dropdownMenufortimeMatchedUsers {
+    width: 230px;
+    height: 40px;
+    font-size: large;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+
 }
 
-.random {
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 20px;
-    border-radius: 10px;
-    padding: 100px;
-    margin: 0 110px 450px;
+#randomMatchedUserInput {
+    width: 230px;
+    height: 40px;
+    font-size: large;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+h2 {
+    font-size: 40px;
 }
 
 @media screen and (max-width: 600px) {

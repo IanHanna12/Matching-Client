@@ -38,6 +38,7 @@ function getUsers() {
     };
     xhr.send();
 }
+
 function writeMatchedUsersToJSON(user) {
     let enteredId = document.getElementById('idinput').value;
     let selectedRestaurant = document.getElementById('restaurantdrop').value;
@@ -77,7 +78,7 @@ function findMatchAjax() {
             if (response.length > 0) {
                 let matchedUser = response;
                 matchedUser.matchedWith = enteredId;
-             //   document.getElementById('matchedUserInput').value = matchedUser.name;
+                //   document.getElementById('matchedUserInput').value = matchedUser.name;
                 document.getElementById('matchedUser').textContent = matchedUser.name;
                 document.getElementById('matchedUserResult').textContent = JSON.stringify(matchedUser, 2);
                 writeMatchedUsersToJSON(matchedUser);
