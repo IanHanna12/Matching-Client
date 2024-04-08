@@ -130,7 +130,7 @@ function showUsersInDropdown() {
         dataType: 'json',
         success: function(users) {
             const select = document.getElementById('dropdownMenu');
-            // Clear the dropdown
+            // Clear  dropdown
             select.innerHTML = '';
             users.forEach(user => {
                 const option = new Option(user.name, user.name);
