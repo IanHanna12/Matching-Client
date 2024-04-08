@@ -132,7 +132,18 @@ function showUsersInDropdown() {
             const select = document.getElementById('dropdownMenufortimeMatchedUsers');
             // Clear  dropdown
             select.innerHTML = '';
-            users.forEach(user => {
+
+            // Filter out duplicate users based on their ID
+            let uniqueUsers = users.reduce((acc, current) => {
+                const x = acc.find(item => item.ID === current.ID);
+                if (!x) {
+                    return acc.concat([current]);
+                } else {
+                    return acc;
+                }
+            }, []);
+
+            uniqueUsers.forEach(user => {
                 const option = new Option(user.name, user.name);
                 select.add(option);
             });
@@ -142,6 +153,7 @@ function showUsersInDropdown() {
         }
     });
 }
+
 // Bind the functions to the onclick events
 document.getElementById('matchUsers').onclick = findMatchAjax;
 document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
