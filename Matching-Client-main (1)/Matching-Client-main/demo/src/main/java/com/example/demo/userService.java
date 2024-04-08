@@ -32,7 +32,6 @@ public class userService {
         java.time.LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
         String time = randomTime.toString();
         String uniqueID = String.valueOf(userIdCounter++);
-        //return new User("User" + ThreadLocalRandom.current().nextInt(100), ""  + " " + ThreadLocalRandom.current().nextInt(100)
         return new User("User" + ThreadLocalRandom.current().nextInt(100), uniqueID, time);
     }
 
