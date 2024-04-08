@@ -129,7 +129,7 @@ function showUsersInDropdown() {
         url: url,
         dataType: 'json',
         success: function(users) {
-            const select = document.getElementById('dropdownMenu');
+            const select = document.getElementById('dropdownMenufortimeMatchedUsers');
             // Clear  dropdown
             select.innerHTML = '';
             users.forEach(user => {
