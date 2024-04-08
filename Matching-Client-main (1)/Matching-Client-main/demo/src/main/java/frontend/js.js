@@ -120,6 +120,28 @@ function findRandomMatchAjax() {
     });
 }
 
+function showUsersInDropdown() {
+    let enteredTime = document.getElementById('timeinput').value;
+    let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType: 'json',
+        success: function(users) {
+            const select = document.getElementById('dropdownMenu');
+            // Clear the dropdown
+            select.innerHTML = '';
+            users.forEach(user => {
+                const option = new Option(user.name, user.name);
+                select.add(option);
+            });
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+}
 // Bind the functions to the onclick events
 document.getElementById('matchUsers').onclick = findMatchAjax;
 document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
