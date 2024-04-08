@@ -23,7 +23,6 @@ public class userService {
     }
 
     int userIdCounter = 0;
-
     public User generateRandomUser() {
         java.time.LocalTime startingTime = java.time.LocalTime.of(11, 30);
         int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
