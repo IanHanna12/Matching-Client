@@ -81,4 +81,10 @@ public class Controller {
         return userService.ReadmatchedUsersfromJSON();
     }
 
+    @PostMapping("/writeUniqueUsers")
+    public void writeUniqueUsers(@RequestBody List<User> uniqueUsers) {
+        userService.writeUniqueUserstoJSON(uniqueUsers);
+    }
+
+
 }

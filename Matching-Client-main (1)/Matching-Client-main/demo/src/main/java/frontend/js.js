@@ -64,10 +64,16 @@ function writeMatchedUsersToJSON(user) {
     });
 }
 
+
+
+
+
+
+
 // Function to find matched users based on entered time
 function findMatchAjax() {
     let enteredTime = document.getElementById('timeinput').value;
-    let enteredId = document.getElementById('idinput').value;
+    let selectedUserName = document.getElementById('dropdownMenufortimeMatchedUsers').value;
     let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
 
     $.ajax({
@@ -76,12 +82,14 @@ function findMatchAjax() {
         contentType: 'application/json',
         success: function (response) {
             if (response.length > 0) {
-                let matchedUser = response;
-                matchedUser.matchedWith = enteredId;
-                //   document.getElementById('matchedUserInput').value = matchedUser.name;
-                document.getElementById('matchedUser').textContent = matchedUser.name;
-                document.getElementById('matchedUserResult').textContent = JSON.stringify(matchedUser, 2);
-                writeMatchedUsersToJSON(matchedUser);
+                let matchedUsers = response.filter(user => user.name === selectedUserName);
+                if (matchedUsers.length > 0) {
+                    document.getElementById('matchedUser').textContent = selectedUserName;
+                    document.getElementById('dropdownMenufortimeMatchedUsers').textContent = JSON.stringify(matchedUsers, 2);
+                    writeMatchedUsersToJSON(matchedUsers);
+                } else {
+                    alert('No user found with the selected name');
+                }
             } else {
                 alert('No users found with the entered time');
             }
@@ -134,6 +142,7 @@ function showUsersInDropdown() {
             // Clear  dropdown
             select.innerHTML = '';
 
+            // Remove duplicates with list of unique users
             let uniqueUsers = [];
             for (let i = 0; i < users.length; i++) {
                 let current = users[i];
@@ -142,6 +151,20 @@ function showUsersInDropdown() {
                     uniqueUsers.push(current);
                 }
             }
+
+            // Write uniqueUsers to JSON file
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost:8080/writeUniqueUsers',
+                contentType: 'application/json',
+                data: JSON.stringify(uniqueUsers),
+                success: function () {
+                    console.log('Unique users written to file');
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
 
             uniqueUsers.forEach(user => {
                 const option = new Option(user.name, user.name);
@@ -152,8 +175,12 @@ function showUsersInDropdown() {
             console.error(error);
         }
     });
+}
 
 // Bind the functions to the onclick events
+function bindEvents() {
     document.getElementById('matchUsers').onclick = findMatchAjax;
     document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;
 }
+
+bindEvents()

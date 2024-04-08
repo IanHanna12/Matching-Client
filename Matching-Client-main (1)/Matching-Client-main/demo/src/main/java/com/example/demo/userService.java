@@ -115,6 +115,41 @@ public class userService {
         }
     }
 
+    public void writeUniqueUserstoJSON(List<User> newUniqueUsers) {
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
+        ObjectMapper mapper = new ObjectMapper();
+
+        // If the file does not exist or is empty, write the new unique users to the file
+        if (!file.exists() || file.length() == 0) {
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, newUniqueUsers);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+
+            List<User> existingUniqueUsers = new ArrayList<>();
+            try {
+                existingUniqueUsers = mapper.readValue(file, new TypeReference<List<User>>() {});
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            for (User newUser : newUniqueUsers) {
+                if (!existingUniqueUsers.contains(newUser)) {
+                    existingUniqueUsers.add(newUser);
+                }
+            }
+
+            // Write the updated list of unique users back to the file
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingUniqueUsers);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
