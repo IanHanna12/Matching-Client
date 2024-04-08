@@ -20,7 +20,7 @@
         <b id="Anmelden"> Bitte Restaurant, ID und Essenszeit angeben</b>
         <div class="Eingabe">
             <form id="restaurant" action="/submit1" method="post">
-                <select id="restaurantdrop" name="Restaurants">
+                <label for="restaurantdrop"></label><select id="restaurantdrop" name="Restaurants">
                     <option value="Restaurant wählen">Restaurant wählen</option>
                     <option value="Stiftsberg">Stiftsberg</option>
                     <option value="Weinsberg">Weinsberg</option>
@@ -39,7 +39,7 @@
                 <input id="idinput" type="text" name="UserID" placeholder="Deine ID" class="input-field">
             </form>
             <form id="timeUser" action="/submit2" method="post">
-                <input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit" class="input-field">
+                <label for="timeinput"></label><input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit" class="input-field">
             </form>
             <button id="matchUsers" onclick="findMatchAjax();">match Users</button>
             <button id="matchUsersrandomly" onclick="findRandomMatchAjax()">match Users randomly</button>
@@ -57,7 +57,7 @@
         <div id="randomResultContainer" class="result">
             <h2>Randomly Matched User</h2>
             <p id="randomMatchedUser"></p>
-            <input type="text" id="randomMatchedUserInput" name="randomMatchedUser" placeholder="Randomly Matched User">
+            <label for="randomMatchedUserInput"></label><input type="text" id="randomMatchedUserInput" name="randomMatchedUser" placeholder="Randomly Matched User">
             <p id="randomMatchedUserResult"></p>
         </div>
         <pre class="random">
