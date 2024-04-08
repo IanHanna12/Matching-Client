@@ -23,6 +23,7 @@ public class userService {
     }
 
     int userIdCounter = 0;
+
     public User generateRandomUser() {
         java.time.LocalTime startingTime = java.time.LocalTime.of(11, 30);
         int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
@@ -71,13 +72,35 @@ public class userService {
 
     public void WritematchedUserstoJSON(List<Match> matchedusers) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
+        ObjectMapper mapper = new ObjectMapper();
 
+        // Read existing matches from the file
+        List<Match> existingMatches = new ArrayList<>();
+        if (file.exists() && file.length() != 0) {
+            try {
+                existingMatches = mapper.readValue(file, new TypeReference<List<Match>>() {
+                });
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // Append new matches to the existing ones
+        existingMatches.addAll(matchedusers);
+
+        // Write the updated list back to file
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
             isExecuted = true;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } if (file.exists() && existingMatches.isEmpty()){
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
+                isExecuted = true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

@@ -133,7 +133,7 @@ function showUsersInDropdown() {
             // Clear  dropdown
             select.innerHTML = '';
 
-            // Filter out duplicate users based on their ID
+            // Filter out duplicate users based on their ID with reduce
             let uniqueUsers = users.reduce((acc, current) => {
                 const x = acc.find(item => item.ID === current.ID);
                 if (!x) {
