@@ -114,27 +114,38 @@ public class userService {
         }
     }
 
-    public void writeUniqueUserstoJSON(List<User> newUniqueUsers) {
+    public void writeUniqueUserstoJSON(List<User> UniqueUsers) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
-        // If the file does not exist or is empty, write the new unique users to the file
-        if (!file.exists() || file.length() == 0) {
+        // If the file does not exist, create it
+        if (!file.exists()) {
             try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, newUniqueUsers);
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException("Error creating new file: " + e.getMessage());
+            }
+        }
+
+        // If the file is empty, write the new unique users to the file
+        if (file.length() == 0) {
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, UniqueUsers);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-
-            List<User> existingUniqueUsers = new ArrayList<>();
+            // If the file exists and is not empty, read existing unique users
+            List<User> existingUniqueUsers;
             try {
                 existingUniqueUsers = mapper.readValue(file, new TypeReference<List<User>>() {});
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                existingUniqueUsers = new ArrayList<>();
             }
 
-            for (User newUser : newUniqueUsers) {
+            // Append new unique users to existing unique users
+            for (User newUser : UniqueUsers) {
                 if (!existingUniqueUsers.contains(newUser)) {
                     existingUniqueUsers.add(newUser);
                 }
@@ -148,7 +159,6 @@ public class userService {
             }
         }
     }
-
     public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
