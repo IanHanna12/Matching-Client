@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,7 +36,7 @@ public class userService {
         return new User("User" + ThreadLocalRandom.current().nextInt(100), uniqueID, time);
     }
 
-    @PostConstruct
+
     public void writeUserstoJSON() {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
         ObjectMapper mapper = new ObjectMapper();
@@ -163,8 +162,8 @@ public class userService {
                 validateUser(user2);
                 LocalTime time1 = LocalTime.parse(user1.getUsertime());
                 LocalTime time2 = LocalTime.parse(user2.getUsertime());
-                long minutesBetween = ChronoUnit.MINUTES.between(time1, time2);
-                if (Math.abs(minutesBetween) <= 15) { // 15 minutes tolerance
+                long timeDifference = ChronoUnit.MINUTES.between(time1, time2);
+                if (Math.abs(timeDifference) <= 20) { // 20 minutes tolerance
                     matcheduserList.add(user1);
                     matcheduserList.add(user2);
                     Users.remove(i);
