@@ -100,9 +100,11 @@ function findRandomMatchAjax() {
         type: "GET",
         url: url,
         contentType: 'application/json',
+        cache: false,
         success: function (response) {
             if (response.length > 0) {
-                let matchedUser = response[0];
+                let randIndex = Math.floor(Math.random() * response.length);
+                let matchedUser = response[randIndex];
                 matchedUser.matchedWith = enteredId;
                 document.getElementById('randomMatchedUserInput').value = matchedUser.name;
                 document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(matchedUser, 2);
