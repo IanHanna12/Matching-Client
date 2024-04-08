@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -67,6 +70,11 @@ public class userService {
             }
         }
         return userList;
+    }
+
+    public void Ensureusersgetmatchedeventhoughtimeinputdoesnteexactlymatch() {
+
+
     }
 
 
@@ -149,11 +157,20 @@ public class userService {
         }
         while (!Users.isEmpty()) {
             User user1 = Users.removeFirst();
-            User user2 = Users.removeFirst();
-            validateUser(user1);
-            validateUser(user2);
-            matcheduserList.add(user1);
-            matcheduserList.add(user2);
+            for (int i = Users.size() - 1; i >= 0; i--) {
+                User user2 = Users.get(i);
+                validateUser(user1);
+                validateUser(user2);
+                LocalTime time1 = LocalTime.parse(user1.getUsertime());
+                LocalTime time2 = LocalTime.parse(user2.getUsertime());
+                long minutesBetween = ChronoUnit.MINUTES.between(time1, time2);
+                if (Math.abs(minutesBetween) <= 15) { // 15 minutes tolerance
+                    matcheduserList.add(user1);
+                    matcheduserList.add(user2);
+                    Users.remove(i);
+                    break;
+                }
+            }
         }
         return matcheduserList;
     }
@@ -169,6 +186,3 @@ public class userService {
         throw new IllegalStateException("User not added");
     }
 }
-
-
-
