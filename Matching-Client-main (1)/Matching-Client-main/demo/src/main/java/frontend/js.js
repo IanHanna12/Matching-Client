@@ -93,8 +93,9 @@ function findMatchAjax() {
 
 // Function to find random matched users
 function findRandomMatchAjax() {
+    let enteredTime = document.getElementById('timeinput').value;
     let enteredId = document.getElementById('idinput').value;
-    let url = 'http://localhost:8080/matchusersRandomly';
+    let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
 
     $.ajax({
         type: "GET",
@@ -110,7 +111,7 @@ function findRandomMatchAjax() {
                 document.getElementById('randomMatchedUserResult').textContent = JSON.stringify(matchedUser, 2);
                 writeMatchedUsersToJSON(matchedUser);
             } else {
-                alert('No users found');
+                alert('No users found with the entered time');
             }
         },
         error: function (error) {
