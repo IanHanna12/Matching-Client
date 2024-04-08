@@ -70,12 +70,12 @@ public class userService {
     }
 
 
-    public void WritematchedUserstoJSON(List<Match> uniqueUsers) {
+    public void WritematchedUserstoJSON(List<Match> matchedusers) {
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, uniqueUsers);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
             isExecuted = true;
         } catch (IOException e) {
             throw new RuntimeException(e);
