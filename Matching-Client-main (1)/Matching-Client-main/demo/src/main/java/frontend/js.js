@@ -142,7 +142,7 @@ function showUsersInDropdown() {
             // Clear  dropdown
             select.innerHTML = '';
 
-            // Remove duplicates with list of unique users
+            // Remove duplicates
             let uniqueUsers = [];
             for (let i = 0; i < users.length; i++) {
                 let current = users[i];
