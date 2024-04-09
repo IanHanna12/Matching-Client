@@ -77,10 +77,10 @@ public class userService {
 
 
     public void WritematchedUserstoJSON(List<Match> matchedusers) {
+
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
 
-        // If the file does not exist or is empty, write the new matches to the file
         if (!file.exists() || file.length() == 0) {
             try {
                 mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
@@ -97,13 +97,11 @@ public class userService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            // Append new unique matches to existing matches
             for (Match newMatch : matchedusers) {
                 if (!existingMatches.contains(newMatch)) {
                     existingMatches.add(newMatch);
                 }
             }
-
 
             try {
                 mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
