@@ -207,7 +207,7 @@ public class userService {
                 LocalTime time1 = LocalTime.parse(user1.getUsertime());
                 LocalTime time2 = LocalTime.parse(user2.getUsertime());
                 long timeDifference = ChronoUnit.MINUTES.between(time1, time2);
-                if (Math.abs(timeDifference) <= 20) { // 20 minutes tolerance
+                if (Math.abs(timeDifference) <= 20) { // 20 minutes time tolerance
                     matcheduserList.add(user1);
                     matcheduserList.add(user2);
                     Users.remove(i);
