@@ -72,8 +72,8 @@ public class Controller {
     }
 
     @PostMapping("/writeMatchedUsers")
-    public void writeMatchedUsers(@RequestBody List<Match> matches) {
-        userService.WritematchedUserstoJSON(matches);
+    public void writeMatchedUserstoJSON(@RequestBody List<Match> matchedUsers) {
+        userService.writeMatchedUserstoJSON(matchedUsers);
     }
 
     @GetMapping("/readMatchedUsers")
@@ -81,10 +81,6 @@ public class Controller {
         return userService.ReadmatchedUsersfromJSON();
     }
 
-    @PostMapping("/writeUniqueUsers")
-    public void writeUniqueUsers(@RequestBody List<User> uniqueUsers) {
-        userService.writeUniqueUserstoJSON(uniqueUsers);
-    }
 
 
 }

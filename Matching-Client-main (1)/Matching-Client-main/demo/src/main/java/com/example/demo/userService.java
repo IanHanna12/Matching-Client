@@ -70,93 +70,27 @@ public class userService {
         return userList;
     }
 
-    public void Ensureusersgetmatchedeventhoughtimeinputdoesnteexactlymatch() {
 
 
-    }
 
-
-    public void WritematchedUserstoJSON(List<Match> matchedusers) {
-
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
+    public void writeMatchedUserstoJSON(List<Match> matchedUsers) {
+        File file = new File("matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
-
-        if (!file.exists() || file.length() == 0) {
-            try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedusers);
-                isExecuted = true;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            // If the file exists and is not empty, read  existing matches
+        try {
             List<Match> existingMatches = new ArrayList<>();
-            try {
-                existingMatches = mapper.readValue(file, new TypeReference<List<Match>>() {
-                });
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            // If file exists and is not empty, read the existing content
+            if (file.exists() && file.length() != 0) {
+                existingMatches = mapper.readValue(file, new TypeReference<List<Match>>() {});
             }
-            for (Match newMatch : matchedusers) {
-                if (!existingMatches.contains(newMatch)) {
-                    existingMatches.add(newMatch);
-                }
-            }
-
-            try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
-                isExecuted = true;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            // Add the new matches to the existing matches
+            existingMatches.addAll(matchedUsers);
+            // Write the combined matches back to the file
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void writeUniqueUserstoJSON(List<User> UniqueUsers) {
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
-        ObjectMapper mapper = new ObjectMapper();
-
-        // If the file does not exist, create it
-        if (!file.exists()) {
-            try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException("Error creating new file: " + e.getMessage());
-            }
-        }
-
-        // If the file is empty, write the new unique users to the file
-        if (file.length() == 0) {
-            try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, UniqueUsers);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            // If the file exists and is not empty, read existing unique users
-            List<User> existingUniqueUsers;
-            try {
-                existingUniqueUsers = mapper.readValue(file, new TypeReference<List<User>>() {});
-            } catch (IOException e) {
-                existingUniqueUsers = new ArrayList<>();
-            }
-
-            // Append new unique users to existing unique users
-            for (User newUser : UniqueUsers) {
-                if (!existingUniqueUsers.contains(newUser)) {
-                    existingUniqueUsers.add(newUser);
-                }
-            }
-
-            // Write the updated list of unique users back to the file
-            try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingUniqueUsers);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
     public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
