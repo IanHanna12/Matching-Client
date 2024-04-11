@@ -1,0 +1,19 @@
+[ {
+  "initiator" : "15",
+  "matchedUser" : {
+    "time" : "11:37",
+    "name" : "User35"
+  }
+}, {
+  "initiator" : "15",
+  "matchedUser" : {
+    "time" : "11:37",
+    "name" : "User8"
+  }
+}, {
+  "initiator" : "15",
+  "matchedUser" : {
+    "time" : "11:37",
+    "name" : "User35"
+  }
+} ]

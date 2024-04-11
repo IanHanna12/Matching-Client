@@ -26,6 +26,8 @@ public class userService {
 
     int userIdCounter = 0;
 
+
+    @PostConstruct
     public User generateRandomUser() {
         java.time.LocalTime startingTime = java.time.LocalTime.of(11, 30);
         int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
@@ -35,25 +37,30 @@ public class userService {
         return new User("User" + ThreadLocalRandom.current().nextInt(100), uniqueID, time);
     }
 
-
+@PostConstruct
     public void writeUserstoJSON() {
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
-        ObjectMapper mapper = new ObjectMapper();
-        if (file.exists() && file.length() == 0) {
-            try {
-                List<User> Users = new ArrayList<>();
-                for (int i = 0; i <= 100; i++) {
-                    User user = generateRandomUser();
-                    Users.add(user);
-                }
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, Users);
-                isExecuted = true;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+    File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
+    ObjectMapper mapper = new ObjectMapper();
+    if (!file.exists() || file.length() == 0) {
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        try {
+            List<User> Users = new ArrayList<>();
+            for (int i = 0; i <= 100; i++) {
+                User user = generateRandomUser();
+                Users.add(user);
             }
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, Users);
+            isExecuted = true;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
+}
     @PostConstruct
     public List<User> readUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
@@ -71,16 +78,15 @@ public class userService {
     }
 
 
-
-
     public void writeMatchedUserstoJSON(List<Match> matchedUsers) {
-        File file = new File("matchedusers.JSON");
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
         try {
             List<Match> existingMatches = new ArrayList<>();
             // If file exists and is not empty, read the existing content
             if (file.exists() && file.length() != 0) {
-                existingMatches = mapper.readValue(file, new TypeReference<List<Match>>() {});
+                existingMatches = mapper.readValue(file, new TypeReference<List<Match>>() {
+                });
             }
             // Add the new matches to the existing matches
             existingMatches.addAll(matchedUsers);
