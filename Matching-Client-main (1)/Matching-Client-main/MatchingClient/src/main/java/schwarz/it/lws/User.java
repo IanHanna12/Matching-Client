@@ -1,32 +1,41 @@
 package schwarz.it.lws;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+import java.time.LocalTime;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 public class User {
+    @NonNull
+    private final String id;
+    private final String email;
+    @NonNull
+    private final String usertime;
+    @NonNull
+    private final String name;
+    @NonNull
+    private final String userId;
 
-    @JsonIgnore
-    private String id;
+    // Static method to generate a random User
+    public static User generateRandomUser() {
+        // Generate random values for User fields
+        String id = UUID.randomUUID().toString();
+        String name = "User" + ThreadLocalRandom.current().nextInt(100);
+        LocalTime startingTime = LocalTime.of(11, 30);
+        int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
+        LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
+        String usertime = randomTime.toString();
 
-    @JsonIgnore
-    private String usertime;
-
-    @JsonProperty("time")
-    private String time;
-
-    @JsonProperty("name")
-    private String name;
-
-    @JsonProperty("ID")
-    private String ID;
+        return User.builder()
+                .id(id)
+                .name(name)
+                .usertime(usertime)
+                .userId(id)
+                .build();
+    }
 }

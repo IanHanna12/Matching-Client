@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static schwarz.it.lws.User.generateRandomUser;
+
 
 @Service
 public class userService {
@@ -27,7 +29,7 @@ public class userService {
 
     int userIdCounter = 0;
 
-
+/*
     @PostConstruct
     public User generateRandomUser() {
         // Generate a random id
@@ -46,7 +48,7 @@ public class userService {
         // Create a new User object with the generated values
         return new User(id, null, time, name, id);
     }
-
+*/
 @PostConstruct
     public void writeUserstoJSON() {
     File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON");
@@ -75,8 +77,8 @@ public class userService {
     public List<User> readUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
 
-        //TODO: fix path
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/users.JSON");
+
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON");
         if (file.exists() && file.length() != 0) {
             try {
                 List<User> Users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
@@ -91,7 +93,7 @@ public class userService {
 
 
     public void writeMatchedUserstoJSON(List<MatchWrapper> matchedUsers) {
-        //TODO: fix path
+
         File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -178,6 +180,5 @@ public class userService {
         if (Inputtime == null) {
             throw new IllegalStateException("User has no time");
         }
-        return;
     }
 }
