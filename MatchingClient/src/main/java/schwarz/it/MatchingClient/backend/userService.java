@@ -142,7 +142,7 @@ public class userService {
             throw new IllegalStateException("Not enough users to Match");
         }
         while (!users.isEmpty()) {
-            User user1 = users.removeFirst();
+            User user1 = users.remove(0);
             for (int i = users.size() - 1; i >= 0; i--) {
                 User user2 = users.get(i);
                 validateUser(user1);
