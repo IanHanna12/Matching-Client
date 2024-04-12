@@ -62,7 +62,7 @@ function writeMatchedUsersToJSON(users) {
     });
 
 
-
+//TODO: only match same user once
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/writeMatchedUsers',
@@ -164,8 +164,6 @@ function showUsersInDropdown() {
             console.error(error);
         }
     });
-
-    // Add this code to the end of your js.js file
 
     let enteredId = document.getElementById('idinput').value;
     let matchedUser = {
