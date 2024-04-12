@@ -167,7 +167,7 @@ function showUsersInDropdown() {
 
     let enteredId = document.getElementById('idinput').value;
     let matchedUser = {
-        id: enteredId, // replace with actual id
+        id: enteredId,
         name: document.getElementById('dropdownMenufortimeMatchedUsers').value,
         time: document.getElementById('timeinput').value
     };
