@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Matching-Client.iml" filepath="$PROJECT_DIR$/.idea/Matching-Client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MatchingClient/client.iml" filepath="$PROJECT_DIR$/MatchingClient/client.iml" />
-    </modules>
-  </component>
-</project>
