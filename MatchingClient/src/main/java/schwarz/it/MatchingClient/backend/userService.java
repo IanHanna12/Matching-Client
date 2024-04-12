@@ -1,5 +1,6 @@
 package schwarz.it.MatchingClient.backend;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -78,27 +79,29 @@ public class userService {
     }
 
 
-    public void writeMatchedUserstoJSON(List<Match> matchedUsers) {
+
+    public void writeMatchedUserstoJSON(Wrapper wrapper) {
         File file = new File("MatchingClient/src/main/java/schwarz/it/MatchingClient/json/matchedusers.JSON");
         ObjectMapper mapper = new ObjectMapper();
         try {
-            List<Wrapper> existingMatches = new ArrayList<>();
+            // Convert the Wrapper object to JSON
+            String json = mapper.writeValueAsString(wrapper);
+
             // If file exists and is not empty, read the existing content
+            List<Wrapper> existingMatches = new ArrayList<>();
             if (file.exists() && file.length() != 0) {
                 existingMatches = mapper.readValue(file, new TypeReference<List<Wrapper>>() {});
             }
-            // Add the new matches to the existing matches
-            for (Match match : matchedUsers) {
-                Wrapper wrapper = new Wrapper(match.getWrapper().getInitiator(), match.getWrapper().getMatchedUser());
-                existingMatches.add(wrapper);
-            }
+
+            // Add the new match to the existing matches
+            existingMatches.add(wrapper);
+
             // Write the combined matches back to the file
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
@@ -134,14 +137,14 @@ public class userService {
 
 
     public List<User> getandmatchUsers(List<User> matcheduserList) {
-        List<User> Users = new ArrayList<>(userList);
-        if (Users.size() < 2) {
+        List<User> users = new ArrayList<>(userList);
+        if (users.size() < 2) {
             throw new IllegalStateException("Not enough users to Match");
         }
-        while (!Users.isEmpty()) {
-            User user1 = Users.removeFirst();
-            for (int i = Users.size() - 1; i >= 0; i--) {
-                User user2 = Users.get(i);
+        while (!users.isEmpty()) {
+            User user1 = users.removeFirst();
+            for (int i = users.size() - 1; i >= 0; i--) {
+                User user2 = users.get(i);
                 validateUser(user1);
                 validateUser(user2);
                 LocalTime time1 = LocalTime.parse(user1.getUsertime());
@@ -150,7 +153,7 @@ public class userService {
                 if (Math.abs(timeDifference) <= 20) { // 20 minutes time tolerance
                     matcheduserList.add(user1);
                     matcheduserList.add(user2);
-                    Users.remove(i);
+                    users.remove(i);
                     break;
                 }
             }

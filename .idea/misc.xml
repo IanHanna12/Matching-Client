@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Matching-Client-main (1)/Matching-Client-main/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/schwarz/it/Matching-Client/pom.xml" />
+        <option value="$PROJECT_DIR$/MatchingClient/pom.xml" />
       </list>
     </option>
   </component>

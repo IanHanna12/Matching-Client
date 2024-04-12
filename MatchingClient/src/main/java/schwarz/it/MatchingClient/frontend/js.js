@@ -44,7 +44,6 @@ function getUsers() {
 // Function to write matched users to JSON
 function writeMatchedUsersToJSON(users) {
     if (!Array.isArray(users)) {
-        console.error('Error: users is not an array');
         return;
     }
 
