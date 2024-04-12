@@ -1,4 +1,4 @@
-package com.example.demo;
+package schwarz.it.lws;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

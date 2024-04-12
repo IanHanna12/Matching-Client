@@ -1,4 +1,4 @@
-package com.example.demo;
+package schwarz.it.lws;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,10 +23,10 @@ import org.slf4j.Logger;
 public class Controller {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
-    private final com.example.demo.userService userService;
+    private final schwarz.it.lws.userService userService;
     private final List<User> Users;
 
-    public Controller(com.example.demo.userService userService, List<User> Users) {
+    public Controller(schwarz.it.lws.userService userService, List<User> Users) {
         this.userService = userService;
         this.Users = Users;
     }
@@ -71,8 +71,10 @@ public class Controller {
         }
     }
 
+
+
     @PostMapping("/writeMatchedUsers")
-    public void writeMatchedUserstoJSON(@RequestBody List<Match> matchedUsers) {
+    public void writeMatchedUserstoJSON(@RequestBody List<MatchWrapper> matchedUsers) {
         userService.writeMatchedUserstoJSON(matchedUsers);
     }
 
