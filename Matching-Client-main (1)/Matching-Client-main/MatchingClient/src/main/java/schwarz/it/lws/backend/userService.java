@@ -1,4 +1,4 @@
-package schwarz.it.lws;
+package schwarz.it.lws.backend;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -10,16 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static schwarz.it.lws.User.GenerateRandomUser.generateRandomUser;
+import static schwarz.it.lws.backend.User.GenerateRandomUser.generateRandomUser;
 
 
 

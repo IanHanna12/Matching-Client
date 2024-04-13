@@ -1,4 +1,4 @@
-package schwarz.it.lws;
+package schwarz.it.lws.backend;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +20,10 @@ import org.slf4j.Logger;
 public class Controller {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
-    private final schwarz.it.lws.userService userService;
+    private final schwarz.it.lws.backend.userService userService;
     private final List<User> Users;
 
-    public Controller(schwarz.it.lws.userService userService, List<User> Users) {
+    public Controller(schwarz.it.lws.backend.userService userService, List<User> Users) {
         this.userService = userService;
         this.Users = Users;
     }

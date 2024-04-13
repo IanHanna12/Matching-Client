@@ -1,4 +1,4 @@
-package schwarz.it.lws;
+package schwarz.it.lws.backend;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

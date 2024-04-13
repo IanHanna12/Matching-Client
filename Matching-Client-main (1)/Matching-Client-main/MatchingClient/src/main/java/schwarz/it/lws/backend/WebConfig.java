@@ -1,4 +1,4 @@
-package schwarz.it.lws;
+package schwarz.it.lws.backend;
 
 
 import org.springframework.context.annotation.Configuration;
