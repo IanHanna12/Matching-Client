@@ -1,1 +1,1 @@
-Main Branch deprecated, all new pushes on Branch 01.
+Main Branch deprecated, all stable pushes on Branch 01.
