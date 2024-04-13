@@ -10,5 +10,4 @@ import lombok.AllArgsConstructor;
 public class MatchWrapper {
 private String initiator;
 private User matchedUser;
-
 }

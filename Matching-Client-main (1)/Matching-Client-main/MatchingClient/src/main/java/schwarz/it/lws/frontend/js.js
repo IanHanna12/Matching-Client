@@ -44,12 +44,13 @@ function getUsers() {
 // Function to write matched users to JSON
 function writeMatchedUsersToJSON(users) {
     if (!Array.isArray(users)) {
-        console.error('Error: users is not an array');
-        return;
+        users = [users];
     }
 
     let enteredId = document.getElementById('idinput').value;
 
+
+    // TODO: potentially fix structure of dataForAjax according to user constructor
     let dataForAjax = users.map(user => {
         return {
             initiator: enteredId,

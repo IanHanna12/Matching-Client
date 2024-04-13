@@ -1,8 +1,11 @@
 package schwarz.it.lws;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -10,11 +13,14 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
-import static schwarz.it.lws.User.generateRandomUser;
+import static schwarz.it.lws.User.GenerateRandomUser.generateRandomUser;
+
 
 
 @Service
@@ -26,29 +32,8 @@ public class userService {
     public userService(List<User> userList) {
         this.userList = userList;
     }
+    public final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
-    int userIdCounter = 0;
-
-/*
-    @PostConstruct
-    public User generateRandomUser() {
-        // Generate a random id
-        String id = UUID.randomUUID().toString();
-
-        // Generate a random name
-        String name = "User" + ThreadLocalRandom.current().nextInt(100);
-
-        // Generate a random time
-        LocalTime startingTime = LocalTime.of(11, 30);
-        int randomMinutes = ThreadLocalRandom.current().nextInt(0, 150);
-        LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
-        String time = randomTime.toString();
-
-
-        // Create a new User object with the generated values
-        return new User(id, null, time, name, id);
-    }
-*/
 @PostConstruct
     public void writeUserstoJSON() {
     File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON");
@@ -131,6 +116,38 @@ public class userService {
     }
 
     public List<User> getandmatchusersRandomly(List<User> matcheduserList) {
+        return getUsers(matcheduserList);
+    }
+
+
+    public class getUsers {
+        public List<User> fetchAllUsers() {
+            return userList;
+        }
+    }
+
+    public List<User> processUserJsonData(String decodedData) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode;
+        try {
+            jsonNode = objectMapper.readTree(decodedData);
+            String time = jsonNode.get("time").asText();
+            List<User> users = this.readUsersfromJSON();
+            users = users.stream().filter(user -> user.getTime().equals(time)).collect(Collectors.toList());
+
+            logger.info("Successfully read users from JSON and filtered by time: {}", time);
+            return users;
+        } catch (JsonProcessingException e) {
+            logger.error("Error while reading users from JSON and filtering by time", e);
+            return Collections.emptyList();
+        }
+    }
+
+    public List<User> getandmatchUsers(List<User> matcheduserList) {
+        return getUsers(matcheduserList);
+    }
+
+    private List<User> getUsers(List<User> matcheduserList) {
         List<User> Users = new ArrayList<>(userList);
         if (Users.size() < 2) {
             throw new IllegalStateException("Not enough users to Match");
@@ -144,41 +161,5 @@ public class userService {
             }
         }
         return matcheduserList;
-    }
-
-
-    public class getUsers{
-
-    }
-    public List<User> getandmatchUsers(List<User> matcheduserList) {
-        List<User> Users = new ArrayList<>(userList);
-        if (Users.size() < 2) {
-            throw new IllegalStateException("Not enough users to Match");
-        }
-        while (!Users.isEmpty()) {
-            User user1 = Users.removeFirst();
-            for (int i = Users.size() - 1; i >= 0; i--) {
-                User user2 = Users.get(i);
-                validateUser(user1);
-                validateUser(user2);
-                LocalTime time1 = LocalTime.parse(user1.getUsertime());
-                LocalTime time2 = LocalTime.parse(user2.getUsertime());
-                long timeDifference = ChronoUnit.MINUTES.between(time1, time2);
-                if (Math.abs(timeDifference) <= 20) { // 20 minutes time tolerance
-                    matcheduserList.add(user1);
-                    matcheduserList.add(user2);
-                    Users.remove(i);
-                    break;
-                }
-            }
-        }
-        return matcheduserList;
-    }
-
-    private void validateUser(User user) {
-        String Inputtime = user.getUsertime();
-        if (Inputtime == null) {
-            throw new IllegalStateException("User has no time");
-        }
     }
 }
