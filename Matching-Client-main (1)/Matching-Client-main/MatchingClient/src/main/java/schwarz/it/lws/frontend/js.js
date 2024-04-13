@@ -132,6 +132,7 @@ function findRandomMatchAjax() {
     });
 }
 
+
 // Function to show users in dropdown
 function showUsersInDropdown() {
     let enteredTime = document.getElementById('timeinput').value;
@@ -166,20 +167,20 @@ function showUsersInDropdown() {
         }
     });
 
-    let enteredId = document.getElementById('idinput').value;
-    let matchedUser = {
-        id: enteredId,
-        name: document.getElementById('dropdownMenufortimeMatchedUsers').value,
-        time: document.getElementById('timeinput').value
-    };
+    let initiatorId = document.getElementById('idinput').value;
+    let matchedUserName = document.getElementById('dropdownMenufortimeMatchedUsers').value;
+    let matchedUserTime = document.getElementById('timeinput').value; // Assuming this is the correct way to get matchedUserTime
+    // Assume getMatchedUserId() is a function that retrieves the ID of the matched user
+    let matchedUserId = getMatchedUserId(matchedUserName, matchedUserTime);
 
     let dataForAjax = {
-        initiator: enteredId,
+        initiator: initiatorId,
         matchedUser: {
-            id: matchedUser.id,
-            name: matchedUser.name,
-            time: matchedUser.time
-        }
+            id: matchedUserId,
+            name: matchedUserName,
+            time: matchedUserTime // Assuming User has a 'time' property
+        },
+        matchedUserTime: matchedUserTime
     };
 
     $.ajax({
@@ -196,6 +197,13 @@ function showUsersInDropdown() {
     });
 }
 
+// Function to get the matched user's ID
+function getMatchedUserId(matchedUserName, matchedUserTime) {
+    // This is a placeholder implementation. You should replace this with your actual implementation.
+    // This function should take the matched user's name and time as parameters and return the matched user's ID.
+    // The implementation of this function would depend on how you're storing and retrieving your users.
+    return "placeholder-id";
+}
 // Bind the functions to the onclick events
 document.getElementById('matchUsers').onclick = findMatchAjax;
 document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;

@@ -8,6 +8,11 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchWrapper {
-private String initiator;
-private User matchedUser;
+    private String initiator;
+    private User matchedUser;
+    private String matchedUserTime;
+
+    public MatchWrapper(User matchedUser) {
+        this.matchedUser = matchedUser;
+    }
 }
