@@ -1,15 +1,16 @@
 package schwarz.it.lws;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import java.time.LocalTime;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     @NonNull
     @Getter

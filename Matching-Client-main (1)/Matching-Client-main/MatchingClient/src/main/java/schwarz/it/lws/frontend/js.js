@@ -40,7 +40,6 @@ function getUsers() {
     xhr.send();
 }
 
-
 // Function to write matched users to JSON
 function writeMatchedUsersToJSON(users) {
     if (!Array.isArray(users)) {
@@ -49,8 +48,6 @@ function writeMatchedUsersToJSON(users) {
 
     let enteredId = document.getElementById('idinput').value;
 
-
-    // TODO: potentially fix structure of dataForAjax according to user constructor
     let dataForAjax = users.map(user => {
         return {
             initiator: enteredId,
@@ -62,8 +59,6 @@ function writeMatchedUsersToJSON(users) {
         };
     });
 
-
-//TODO: only match same user once
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/writeMatchedUsers',
@@ -77,6 +72,7 @@ function writeMatchedUsersToJSON(users) {
         }
     });
 }
+
 // Function to find matched users based on entered time
 function findMatchAjax() {
     let enteredTime = document.getElementById('timeinput').value;
@@ -132,8 +128,6 @@ function findRandomMatchAjax() {
     });
 }
 
-
-// Function to show users in dropdown
 function showUsersInDropdown() {
     let enteredTime = document.getElementById('timeinput').value;
     let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
@@ -169,18 +163,30 @@ function showUsersInDropdown() {
 
     let initiatorId = document.getElementById('idinput').value;
     let matchedUserName = document.getElementById('dropdownMenufortimeMatchedUsers').value;
-    let matchedUserTime = document.getElementById('timeinput').value; // Assuming this is the correct way to get matchedUserTime
-    // Assume getMatchedUserId() is a function that retrieves the ID of the matched user
-    let matchedUserId = getMatchedUserId(matchedUserName, matchedUserTime);
+
+
+    //get the matchwrapper
+    function getMatchWrapper(matchedUserName) {
+        let initiatorId = document.getElementById('idinput').value;
+        let users = JSON.parse(document.getElementById('idinputmatch').value);
+        let matchedUser = users.find(user => user.name === matchedUserName);
+
+        return {
+            initiator: initiatorId,
+            matchedUser: matchedUser,
+            matchedUserTime: matchedUser.time
+        };
+    }
+    let matchWrapper = getMatchWrapper(matchedUserName);
 
     let dataForAjax = {
-        initiator: initiatorId,
+        initiator: matchWrapper.initiator,
         matchedUser: {
-            id: matchedUserId,
+            id: matchWrapper.matchedUser.id,
             name: matchedUserName,
-            time: matchedUserTime // Assuming User has a 'time' property
+            time: matchWrapper.matchedUser.time
         },
-        matchedUserTime: matchedUserTime
+        matchedUserTime: matchWrapper.matchedUserTime
     };
 
     $.ajax({
@@ -197,13 +203,8 @@ function showUsersInDropdown() {
     });
 }
 
-// Function to get the matched user's ID
-function getMatchedUserId(matchedUserName, matchedUserTime) {
-    // This is a placeholder implementation. You should replace this with your actual implementation.
-    // This function should take the matched user's name and time as parameters and return the matched user's ID.
-    // The implementation of this function would depend on how you're storing and retrieving your users.
-    return "placeholder-id";
-}
+
+
 // Bind the functions to the onclick events
 document.getElementById('matchUsers').onclick = findMatchAjax;
 document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;

@@ -12,7 +12,9 @@ public class MatchWrapper {
     private User matchedUser;
     private String matchedUserTime;
 
-    public MatchWrapper(User matchedUser) {
+    public MatchWrapper(String initiator, User matchedUser) {
+        this.initiator = initiator;
         this.matchedUser = matchedUser;
+        this.matchedUserTime = matchedUser.getTime();
     }
 }

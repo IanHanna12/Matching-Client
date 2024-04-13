@@ -1,1 +1,17 @@
-[ ]
+[ {
+  "initiator" : "15",
+  "matchedUser" : {
+    "name" : "User72",
+    "id" : "879056e6-007e-4c6d-8735-59a14c9d3fe5",
+    "time" : "13:31"
+  },
+  "matchedUserTime" : null
+}, {
+  "initiator" : "15",
+  "matchedUser" : {
+    "name" : "User47",
+    "id" : "faeccb9a-c5b4-476b-a846-222f9ae3411a",
+    "time" : "13:31"
+  },
+  "matchedUserTime" : null
+} ]
