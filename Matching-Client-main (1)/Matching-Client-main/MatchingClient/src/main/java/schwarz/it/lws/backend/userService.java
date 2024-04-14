@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -129,8 +130,17 @@ public class userService {
         try {
             jsonNode = objectMapper.readTree(decodedData);
             String time = jsonNode.get("time").asText();
+            LocalTime enteredTime = LocalTime.parse(time);
+            LocalTime lowerBound = enteredTime.minusMinutes(20);
+            LocalTime upperBound = enteredTime.plusMinutes(20);
+
             List<User> users = this.readUsersfromJSON();
-            users = users.stream().filter(user -> user.getTime().equals(time)).collect(Collectors.toList());
+            users = users.stream()
+                    .filter(user -> {
+                        LocalTime userTime = LocalTime.parse(user.getTime());
+                        return userTime.isAfter(lowerBound) && userTime.isBefore(upperBound);
+                    })
+                    .collect(Collectors.toList());
 
             logger.info("Successfully read users from JSON and filtered by time: {}", time);
             return users;
