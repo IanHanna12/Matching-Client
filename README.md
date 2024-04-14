@@ -1,1 +1,1 @@
-Branch-02 is the working branch and for testing purposes to be later merged with branch-01.
+Branch-03 is running java 21 LTS instead of java 22 (Branch-02)
