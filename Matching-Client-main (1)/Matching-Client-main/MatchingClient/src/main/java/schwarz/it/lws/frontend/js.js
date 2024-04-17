@@ -1,8 +1,3 @@
-// Function to submit forms
-function submitForms() {
-    document.getElementById("id").submit();
-    document.getElementById("time").submit('');
-}
 
 // Function to validate fields
 function validateFields() {
@@ -22,7 +17,7 @@ function validateFields() {
     return true;
 }
 
-// Function to get users
+/*
 function getUsers() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:8080/getUsers', true);
@@ -39,6 +34,7 @@ function getUsers() {
     };
     xhr.send();
 }
+*/
 
 // Function to write matched users to JSON
 function writeMatchedUsersToJSON(users) {
@@ -204,7 +200,3 @@ function showUsersInDropdown() {
 }
 
 
-
-// Bind the functions to the onclick events
-document.getElementById('matchUsers').onclick = findMatchAjax;
-document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;

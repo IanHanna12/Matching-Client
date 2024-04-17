@@ -39,7 +39,6 @@
                 <input id="idinput" type="text" name="UserID" placeholder="Deine ID" class="input-field">
             </form>
             <form id="timeUser" action="/submit2" method="post">
-                <label for="timeinput"></label>
                 <input id="timeinput" type="text" name="UserTime" placeholder="Deine Essenszeit" class="input-field">
             </form>
             <button id="matchUsers" onclick="showUsersInDropdown();">match Users</button>
@@ -53,8 +52,7 @@
         <div id="resultContainer" class="result">
             <h2>Matched User</h2>
             <form id="matchedUser" method="post">
-                <label for="dropdownMenufortimeMatchedUsers"></label>
-                <select id="dropdownMenufortimeMatchedUsers" name="matchedusers" >
+                <select id="dropdownMenufortimeMatchedUsers" name="matchedusers">
                     <option disabled selected value="matcheduser">User XX</option>
                 </select>
             </form>
@@ -63,17 +61,10 @@
         <div id="randomResultContainer" class="result">
             <h2>Randomly Matched User</h2>
 
-            <label for="randomMatchedUserInput"></label>
-            <input type="text" id="randomMatchedUserInput" name="randomMatchedUser" placeholder="dein zufälliger Lunchpartner">
+            <input type="text" id="randomMatchedUserInput" name="randomMatchedUser"
+                   placeholder="dein zufälliger Lunchpartner">
         </div>
 
-        <pre>
-            <div id="Video">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/YrxBCBibVo0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            </div>
-        </pre>
     </div>
 </section>
 
