@@ -205,6 +205,3 @@ function showUsersInDropdown() {
 
 
 
-// Bind the functions to the onclick events
-document.getElementById('matchUsers').onclick = findMatchAjax;
-document.getElementById('matchUsersrandomly').onclick = findRandomMatchAjax;

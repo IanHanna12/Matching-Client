@@ -1,4 +1,4 @@
-package schwarz.it.lws.backend;
+package schwarz.it.lws.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -38,7 +38,7 @@ public class User {
             LocalTime randomTime = startingTime.plusMinutes(randomMinutes);
             String time = randomTime.toString();
 
-            // Create and return a new User instance with the random values
+
             return new User(name, id, time);
         }
     }

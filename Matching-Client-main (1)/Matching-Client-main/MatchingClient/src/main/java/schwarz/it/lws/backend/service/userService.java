@@ -1,4 +1,4 @@
-package schwarz.it.lws.backend;
+package schwarz.it.lws.backend.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+import schwarz.it.lws.backend.dto.MatchWrapper;
+import schwarz.it.lws.backend.RESTController.Controller;
+import schwarz.it.lws.backend.dto.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static schwarz.it.lws.backend.User.GenerateRandomUser.generateRandomUser;
+import static schwarz.it.lws.backend.dto.User.GenerateRandomUser.generateRandomUser;
 
 
 
@@ -25,10 +28,10 @@ import static schwarz.it.lws.backend.User.GenerateRandomUser.generateRandomUser;
 public class userService {
 
     boolean isExecuted;
-    private final List<User> userList;
+    private final List<User> userlist;
 
-    public userService(List<User> userList) {
-        this.userList = userList;
+    public userService(List<User> userlist) {
+        this.userlist = userlist;
     }
     public final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
@@ -44,12 +47,12 @@ public class userService {
             return;
         }
         try {
-            List<User> Users = new ArrayList<>();
+            List<User> users = new ArrayList<>();
             for (int i = 0; i <= 100; i++) {
                 User user = generateRandomUser();
-                Users.add(user);
+                users.add(user);
             }
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, Users);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, users);
             isExecuted = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,13 +68,13 @@ public class userService {
         if (file.exists() && file.length() != 0) {
             try {
                 List<User> Users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-                userList.addAll(Users);
+                userlist.addAll(Users);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        return userList;
+        return userlist;
     }
 
 
@@ -104,7 +107,7 @@ public class userService {
             try {
                 matchedusers = mapper.readValue(file, new TypeReference<List<User>>() {
                 });
-                userList.addAll(matchedusers);
+                userlist.addAll(matchedusers);
                 isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -113,15 +116,8 @@ public class userService {
         return matchedusers;
     }
 
-    public List<User> getandmatchusersRandomly(List<User> matcheduserList) {
-        return getUsers(matcheduserList);
-    }
-
-
-    public class getUsers {
-        public List<User> fetchAllUsers() {
-            return userList;
-        }
+    public List<User> getandmatchusersRandomly(List<User> matcheduserlist) {
+        return getUsers(matcheduserlist);
     }
 
     public List<User> processUserJsonData(String decodedData) {
@@ -150,23 +146,23 @@ public class userService {
         }
     }
 
-    public List<User> getandmatchUsers(List<User> matcheduserList) {
-        return getUsers(matcheduserList);
+    public List<User> getandmatchUsers(List<User> matcheduserlist) {
+        return getUsers(matcheduserlist);
     }
 
-    private List<User> getUsers(List<User> matcheduserList) {
-        List<User> Users = new ArrayList<>(userList);
+    private List<User> getUsers(List<User> matcheduserlist) {
+        List<User> Users = new ArrayList<>(userlist);
         if (Users.size() < 2) {
             throw new IllegalStateException("Not enough users to Match");
         }
         while (!Users.isEmpty()) {
             int randomIndex = ThreadLocalRandom.current().nextInt(Users.size());
-            matcheduserList.add(Users.remove(randomIndex));
+            matcheduserlist.add(Users.remove(randomIndex));
             if (!Users.isEmpty()) {
                 randomIndex = ThreadLocalRandom.current().nextInt(Users.size());
-                matcheduserList.add(Users.remove(randomIndex));
+                matcheduserlist.add(Users.remove(randomIndex));
             }
         }
-        return matcheduserList;
+        return matcheduserlist;
     }
 }

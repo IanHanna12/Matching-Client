@@ -1,4 +1,4 @@
-package schwarz.it.lws.backend;
+package schwarz.it.lws.backend.RESTController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
+import schwarz.it.lws.backend.dto.MatchWrapper;
+import schwarz.it.lws.backend.dto.User;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -21,10 +23,10 @@ import org.slf4j.Logger;
 public class Controller {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
-    private final schwarz.it.lws.backend.userService userService;
+    private final schwarz.it.lws.backend.service.userService userService;
     private final List<User> Users;
 
-    public Controller(schwarz.it.lws.backend.userService userService, List<User> Users) {
+    public Controller(schwarz.it.lws.backend.service.userService userService, List<User> Users) {
         this.userService = userService;
         this.Users = Users;
     }
