@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+
 public class Controller {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
