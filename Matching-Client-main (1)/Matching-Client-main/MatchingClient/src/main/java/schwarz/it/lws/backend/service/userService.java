@@ -26,6 +26,9 @@ import static schwarz.it.lws.backend.dto.User.GenerateRandomUser.generateRandomU
 
 @Service
 public class userService {
+    String pathtoUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON";
+
+    String pathtomatchedUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/matchedusers.JSON";
 
     boolean isExecuted;
     private final List<User> userlist;
@@ -35,17 +38,19 @@ public class userService {
     }
     public final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
-@PostConstruct
+    @PostConstruct
     public void writeUserstoJSON() {
-    File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON");
-    ObjectMapper mapper = new ObjectMapper();
-    if (!file.exists() || file.length() == 0) {
+        File file = new File(pathtoUsers);
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Always create a new file, overwriting the existing one
         try {
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
+
         try {
             List<User> users = new ArrayList<>();
             for (int i = 0; i <= 100; i++) {
@@ -58,13 +63,11 @@ public class userService {
             e.printStackTrace();
         }
     }
-}
-    @PostConstruct
     public List<User> readUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
+        File file = new File(pathtoUsers);
 
-
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON");
+        // Check if the file is empty
         if (file.exists() && file.length() != 0) {
             try {
                 List<User> Users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
@@ -79,29 +82,30 @@ public class userService {
 
 
     public void writeMatchedUserstoJSON(List<MatchWrapper> matchedUsers) {
-
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/matchedusers.JSON");
+        File file = new File(pathtomatchedUsers);
         ObjectMapper mapper = new ObjectMapper();
+
+        // Always create a new file, overwriting the existing one
         try {
-            List<MatchWrapper> existingMatches = new ArrayList<>();
-            // If file exists and is not empty, read the existing content
-            if (file.exists() && file.length() != 0) {
-                existingMatches = mapper.readValue(file, new TypeReference<List<MatchWrapper>>() {});
-            }
-            // Add the new matches to the existing matches
-            existingMatches.addAll(matchedUsers);
-            // Write the combined matches back to the file
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingMatches);
+            file.createNewFile();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+            // Write the matchedUsers list to the file
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedUsers);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
 
-        //TODO: fix path
-        File file = new File("Matching-Client-main (1)/Matching-Client-main/demo/src/main/java/com/example/demo/json/matchedusers.JSON");
+
+        File file = new File(pathtomatchedUsers);
         List<User> matchedusers = new ArrayList<>();
         if (file.exists() && file.length() != 0) {
             try {
