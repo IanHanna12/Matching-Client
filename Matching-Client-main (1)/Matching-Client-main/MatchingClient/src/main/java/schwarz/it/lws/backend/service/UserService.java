@@ -39,7 +39,7 @@ public class UserService {
     public final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
     @PostConstruct
-    public void writeUserstoJSON() {
+    public void writeuserstoJSON() {
         File file = new File(pathtoUsers);
         ObjectMapper mapper = new ObjectMapper();
 
@@ -58,12 +58,12 @@ public class UserService {
                 users.add(user);
             }
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, users);
-            isExecuted = true;
+          //  isExecuted = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public List<User> readUsersfromJSON() {
+    public List<User> readusersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(pathtoUsers);
 
@@ -72,7 +72,7 @@ public class UserService {
             try {
                 List<User> Users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
                 userlist.addAll(Users);
-                isExecuted = true;
+             //   isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -80,34 +80,34 @@ public class UserService {
         return userlist;
     }
 
-    public void writeMatchedUserstoJSON(List<MatchWrapper> matchedUsers) {
+    public void writematcheduserstoJSON(List<MatchWrapper> matchedusers) {
         File file = new File(pathtomatchedUsers);
         ObjectMapper mapper = new ObjectMapper();
-        List<MatchWrapper> existingUsers = new ArrayList<>();
+        List<MatchWrapper> existingusers = new ArrayList<>();
 
 
         if (file.exists() && file.length() != 0) {
             try {
-                existingUsers = mapper.readValue(file, new TypeReference<List<MatchWrapper>>(){});
+                existingusers = mapper.readValue(file, new TypeReference<List<MatchWrapper>>(){});
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         // Append the new matched users to the existing list
-        existingUsers.addAll(matchedUsers);
+        existingusers.addAll(matchedusers);
 
         // Write the combined list of matched users back to the file
         try {
             file.createNewFile();
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingUsers);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingusers);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public List<User> ReadmatchedUsersfromJSON() {
+    public List<User> readmatchedusersfromjson() {
         ObjectMapper mapper = new ObjectMapper();
 
 
@@ -118,7 +118,7 @@ public class UserService {
                 matchedusers = mapper.readValue(file, new TypeReference<List<User>>() {
                 });
                 userlist.addAll(matchedusers);
-                isExecuted = true;
+              //  isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -140,7 +140,7 @@ public class UserService {
             LocalTime lowerBound = enteredTime.minusMinutes(20);
             LocalTime upperBound = enteredTime.plusMinutes(20);
 
-            List<User> users = this.readUsersfromJSON();
+            List<User> users = this.readusersfromJSON();
             users = users.stream()
                     .filter(user -> {
                         LocalTime userTime = LocalTime.parse(user.getTime());
@@ -156,7 +156,7 @@ public class UserService {
         }
     }
 
-    public List<User> getandmatchUsers(List<User> matcheduserlist) {
+    public List<User> getandmatchusers(List<User> matcheduserlist) {
         return getUsers(matcheduserlist);
     }
 

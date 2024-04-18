@@ -40,17 +40,17 @@ public class Controller {
 
     @GetMapping("/matchUsers")
     public List<User> matchUsers() {
-        return userService.getandmatchUsers(Users);
+        return userService.getandmatchusers(Users);
     }
 
     @PutMapping("getmatchedUsers")
     public List<User> getMatchedUsers() {
-        return userService.ReadmatchedUsersfromJSON();
+        return userService.readmatchedusersfromjson();
     }
 
     @PostMapping("/writeUsers")
     public void writeUserstoJson() throws JsonProcessingException {
-        userService.writeUserstoJSON();
+        userService.writeuserstoJSON();
     }
 
     @GetMapping("/readUsers")
@@ -63,11 +63,11 @@ public class Controller {
 
     @PostMapping("/writeMatchedUsers")
     public void writeMatchedUserstoJSON(@RequestBody List<MatchWrapper> matchedUsers) {
-        userService.writeMatchedUserstoJSON(matchedUsers);
+        userService.writematcheduserstoJSON(matchedUsers);
     }
     @GetMapping("/readMatchedUsers")
     public List<User> readMatchedUsersFromJson() {
-        return userService.ReadmatchedUsersfromJSON();
+        return userService.readmatchedusersfromjson();
     }
 
 
