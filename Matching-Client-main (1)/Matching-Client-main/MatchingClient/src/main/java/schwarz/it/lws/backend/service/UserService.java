@@ -25,7 +25,7 @@ import static schwarz.it.lws.backend.dto.User.GenerateRandomUser.generateRandomU
 
 
 @Service
-public class userService {
+public class UserService {
     String pathtoUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON";
 
     String pathtomatchedUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/matchedusers.JSON";
@@ -33,7 +33,7 @@ public class userService {
     boolean isExecuted;
     private final List<User> userlist;
 
-    public userService(List<User> userlist) {
+    public UserService(List<User> userlist) {
         this.userlist = userlist;
     }
     public final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
@@ -85,13 +85,12 @@ public class userService {
         ObjectMapper mapper = new ObjectMapper();
         List<MatchWrapper> existingUsers = new ArrayList<>();
 
-        // Check if the file exists and is not empty, then read the existing users
-        if (file.exists() && file.length() > 0) {
+
+        if (file.exists() && file.length() != 0) {
             try {
                 existingUsers = mapper.readValue(file, new TypeReference<List<MatchWrapper>>(){});
             } catch (IOException e) {
                 e.printStackTrace();
-                // If reading fails, proceed to write/overwrite with only the new matchedUsers
             }
         }
 
@@ -100,8 +99,7 @@ public class userService {
 
         // Write the combined list of matched users back to the file
         try {
-            // Always create a new file, overwriting the existing one
-            file.createNewFile(); // Consider removing this line if you want to ensure no data loss on write failure
+            file.createNewFile();
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingUsers);
         } catch (IOException e) {
             e.printStackTrace();
