@@ -80,26 +80,34 @@ public class userService {
         return userlist;
     }
 
-
     public void writeMatchedUserstoJSON(List<MatchWrapper> matchedUsers) {
         File file = new File(pathtomatchedUsers);
         ObjectMapper mapper = new ObjectMapper();
+        List<MatchWrapper> existingUsers = new ArrayList<>();
 
-        // Always create a new file, overwriting the existing one
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
+        // Check if the file exists and is not empty, then read the existing users
+        if (file.exists() && file.length() > 0) {
+            try {
+                existingUsers = mapper.readValue(file, new TypeReference<List<MatchWrapper>>(){});
+            } catch (IOException e) {
+                e.printStackTrace();
+                // If reading fails, proceed to write/overwrite with only the new matchedUsers
+            }
         }
 
+        // Append the new matched users to the existing list
+        existingUsers.addAll(matchedUsers);
+
+        // Write the combined list of matched users back to the file
         try {
-            // Write the matchedUsers list to the file
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, matchedUsers);
+            // Always create a new file, overwriting the existing one
+            file.createNewFile(); // Consider removing this line if you want to ensure no data loss on write failure
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingUsers);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public List<User> ReadmatchedUsersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
