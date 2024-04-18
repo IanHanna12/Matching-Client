@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import schwarz.it.lws.backend.dto.MatchWrapper;
 import schwarz.it.lws.backend.dto.User;
+import schwarz.it.lws.backend.service.UserService;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -23,10 +24,10 @@ import schwarz.it.lws.backend.dto.User;
 public class Controller {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
-    private final schwarz.it.lws.backend.service.userService userService;
+    private final UserService userService;
     private final List<User> Users;
 
-    public Controller(schwarz.it.lws.backend.service.userService userService, List<User> Users) {
+    public Controller(UserService userService, List<User> Users) {
         this.userService = userService;
         this.Users = Users;
     }
