@@ -23,19 +23,17 @@ import java.util.stream.Collectors;
 import static schwarz.it.lws.backend.dto.User.GenerateRandomUser.generateRandomUser;
 
 
-
 @Service
 public class UserService {
     String pathtoUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON";
-
     String pathtomatchedUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/matchedusers.JSON";
 
-    boolean isExecuted;
     private final List<User> userlist;
 
     public UserService(List<User> userlist) {
         this.userlist = userlist;
     }
+
     public final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
     @PostConstruct
@@ -43,7 +41,6 @@ public class UserService {
         File file = new File(pathtoUsers);
         ObjectMapper mapper = new ObjectMapper();
 
-        // Always create a new file, overwriting the existing one
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -58,21 +55,19 @@ public class UserService {
                 users.add(user);
             }
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, users);
-          //  isExecuted = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public List<User> readusersfromJSON() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(pathtoUsers);
 
-        // Check if the file is empty
         if (file.exists() && file.length() != 0) {
             try {
                 List<User> Users = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
                 userlist.addAll(Users);
-             //   isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -88,7 +83,8 @@ public class UserService {
 
         if (file.exists() && file.length() != 0) {
             try {
-                existingusers = mapper.readValue(file, new TypeReference<List<MatchWrapper>>(){});
+                existingusers = mapper.readValue(file, new TypeReference<List<MatchWrapper>>() {
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,8 +92,6 @@ public class UserService {
 
         // Append the new matched users to the existing list
         existingusers.addAll(matchedusers);
-
-        // Write the combined list of matched users back to the file
         try {
             file.createNewFile();
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, existingusers);
@@ -118,7 +112,6 @@ public class UserService {
                 matchedusers = mapper.readValue(file, new TypeReference<List<User>>() {
                 });
                 userlist.addAll(matchedusers);
-              //  isExecuted = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -140,13 +133,12 @@ public class UserService {
             LocalTime lowerBound = enteredTime.minusMinutes(20);
             LocalTime upperBound = enteredTime.plusMinutes(20);
 
+
             List<User> users = this.readusersfromJSON();
-            users = users.stream()
-                    .filter(user -> {
-                        LocalTime userTime = LocalTime.parse(user.getTime());
-                        return userTime.isAfter(lowerBound) && userTime.isBefore(upperBound);
-                    })
-                    .collect(Collectors.toList());
+            users = users.stream().filter(user -> {
+                LocalTime userTime = LocalTime.parse(user.getTime());
+                return userTime.isAfter(lowerBound) && userTime.isBefore(upperBound);
+            }).collect(Collectors.toList());
 
             logger.info("Successfully read users from JSON and filtered by time: {}", time);
             return users;
@@ -176,3 +168,4 @@ public class UserService {
         return matcheduserlist;
     }
 }
+
