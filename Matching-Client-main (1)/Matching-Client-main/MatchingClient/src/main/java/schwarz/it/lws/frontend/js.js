@@ -160,48 +160,4 @@ function showUsersInDropdown() {
             console.error(error);
         }
     });
-
-    let initiatorId = document.getElementById('idinput').value;
-    let matchedUserName = document.getElementById('dropdownMenufortimeMatchedUsers').value;
-
-
-    //get the matchwrapper
-    function getMatchWrapper(matchedUserName) {
-        let initiatorId = document.getElementById('idinput').value;
-        let users = JSON.parse(document.getElementById('idinputmatch').value);
-        let matchedUser = users.find(user => user.name === matchedUserName);
-
-        return {
-            initiator: initiatorId,
-            matchedUser: matchedUser,
-            matchedUserTime: matchedUser.time
-        };
-    }
-    let matchWrapper = getMatchWrapper(matchedUserName);
-
-    let dataForAjax = {
-        initiator: matchWrapper.initiator,
-        matchedUser: {
-            id: matchWrapper.matchedUser.id,
-            name: matchedUserName,
-            time: matchWrapper.matchedUser.time
-        },
-        matchedUserTime: matchWrapper.matchedUserTime
-    };
-
-    $.ajax({
-        type: "POST",
-        url: 'http://localhost:8080/writeMatchedUsers',
-        contentType: 'application/json',
-        data: JSON.stringify(dataForAjax),
-        success: function () {
-            console.log('Data written to file');
-        },
-        error: function (error) {
-            console.error(error);
-        }
-    });
 }
-
-
-

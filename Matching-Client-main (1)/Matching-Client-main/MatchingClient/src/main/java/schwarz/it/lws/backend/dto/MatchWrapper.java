@@ -12,4 +12,5 @@ import lombok.NonNull;
 public class MatchWrapper {
     private String initiator;
     private User matchedUser;
+
 }
