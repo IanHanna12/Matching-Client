@@ -3,6 +3,7 @@ package schwarz.it.lws.backend.RESTController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -32,11 +33,10 @@ public class Controller {
         this.Users = Users;
     }
 
-    @GetMapping("/matchusersRandomly")
-    public List<User> matchUsersRandomly() {
-        return userService.getandmatchusersRandomly(Users);
+    @GetMapping("/findAndMatchUsersRandomly")
+    public User findAndMatchUsersRandomly(@RequestParam String enteredTime, @RequestParam String enteredId) throws IOException, IOException {
+        return userService.findAndMatchUsersRandomly(enteredTime, enteredId);
     }
-
 
     @GetMapping("/matchUsers")
     public List<User> matchUsers() {
