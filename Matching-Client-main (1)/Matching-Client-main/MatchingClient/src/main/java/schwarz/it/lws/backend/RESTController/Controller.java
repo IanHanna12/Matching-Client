@@ -59,8 +59,6 @@ public class Controller {
         return userService.processUserJsonData(decodedData);
     }
 
-
-
     @PostMapping("/writeMatchedUsers")
     public void writeMatchedUserstoJSON(@RequestBody List<MatchWrapper> matchedUsers) {
         userService.writematcheduserstoJSON(matchedUsers);
