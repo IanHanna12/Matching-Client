@@ -40,124 +40,133 @@ function getUsers() {
     xhr.send();
 }
 
-// Function to write matched users to JSON
-function writeMatchedUsersToJSON(users) {
-    if (!Array.isArray(users)) {
-        users = [users];
+
+function writerestaurants(restaurants) {
+    if (!Array.isArray(restaurants)) {
+        restaurants = [restaurants];
     }
 
-    let enteredId = document.getElementById('idinput').value;
 
-    let dataForAjax = users.map(user => {
-        return {
-            initiator: enteredId,
-            matchedUser: {
-                id: user.id,
-                name: user.name,
-                time: user.time
-            }
-        };
-    });
 
-    $.ajax({
-        type: "POST",
-        url: 'http://localhost:8080/writeMatchedUsers',
-        contentType: 'application/json',
-        data: JSON.stringify(dataForAjax),
-        success: function () {
-            console.log('Data written to file');
-        },
-        error: function (error) {
-            console.error(error);
+// Function to write matched users to JSON
+    function writeMatchedUsersToJSON(users) {
+        if (!Array.isArray(users)) {
+            users = [users];
         }
-    });
-}
+
+        let enteredId = document.getElementById('idinput').value;
+
+        let dataForAjax = users.map(user => {
+            return {
+                initiator: enteredId,
+                matchedUser: {
+                    id: user.id,
+                    name: user.name,
+                    time: user.time
+                }
+            };
+        });
+
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8080/writeMatchedUsers',
+            contentType: 'application/json',
+            data: JSON.stringify(dataForAjax),
+            success: function () {
+                console.log('Data written to file');
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
 
 // Function to find matched users based on entered time
-function findMatchAjax() {
-    let enteredTime = document.getElementById('timeinput').value;
-    let enteredId = document.getElementById('idinput').value;
-    let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
+    function findMatchAjax() {
+        let enteredTime = document.getElementById('timeinput').value;
+        let enteredId = document.getElementById('idinput').value;
+        let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
 
-    $.ajax({
-        type: "GET",
-        url: url,
-        contentType: 'application/json',
-        success: function (response) {
-            if (response.length > 0) {
-                let matchedUser = response;
-                matchedUser.matchedWith = enteredId;
-                document.getElementById('matchedUser').textContent = matchedUser.name;
-                document.getElementById('matchedUserResult').textContent = JSON.stringify(matchedUser, 2);
-                writeMatchedUsersToJSON(matchedUser);
-            } else {
-                alert('No users found with the entered time');
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.length > 0) {
+                    let matchedUser = response;
+                    matchedUser.matchedWith = enteredId;
+                    document.getElementById('matchedUser').textContent = matchedUser.name;
+                    document.getElementById('matchedUserResult').textContent = JSON.stringify(matchedUser, 2);
+                    writeMatchedUsersToJSON(matchedUser);
+                } else {
+                    alert('No users found with the entered time');
+                }
+            },
+            error: function (error) {
+                console.error(error);
             }
-        },
-        error: function (error) {
-            console.error(error);
-        }
-    });
-}
+        });
+    }
 
 // Function to find random matched users
-function findRandomMatchAjax() {
-    let enteredTime = document.getElementById('timeinput').value;
-    let enteredId = document.getElementById('idinput').value;
-    let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
-    $.ajax({
-        type: "GET",
-        url: url,
-        contentType: 'application/json',
-        cache: false,
-        success: function (response) {
-            if (response.length > 0) {
-                let randIndex = Math.floor(Math.random() * response.length);
-                let matchedUser = response[randIndex];
-                matchedUser.matchedWith = enteredId;
-                document.getElementById('randomMatchedUserInput').value = matchedUser.name;
-                document.getElementById('randomMatchedUserInput').textContent = JSON.stringify(matchedUser, 2);
-                writeMatchedUsersToJSON([matchedUser]);
-            } else {
-                alert('No users found with the entered time');
-            }
-        },
-        error: function (error) {
-            console.error(error);
-        }
-    });
-}
-
-function showUsersInDropdown() {
-    let enteredTime = document.getElementById('timeinput').value;
-    let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
-
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: 'json',
-        success: function (users) {
-            const select = document.getElementById('dropdownMenufortimeMatchedUsers');
-            select.innerHTML = '';
-
-            let uniqueUsers = [];
-            for (let i = 0; i < users.length; i++) {
-                let current = users[i];
-                let x = uniqueUsers.find(uniqueName => uniqueName.name === current.name);
-                if (!x) {
-                    uniqueUsers.push(current);
+    function findRandomMatchAjax() {
+        let enteredTime = document.getElementById('timeinput').value;
+        let enteredId = document.getElementById('idinput').value;
+        let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: 'application/json',
+            cache: false,
+            success: function (response) {
+                if (response.length > 0) {
+                    let randIndex = Math.floor(Math.random() * response.length);
+                    let matchedUser = response[randIndex];
+                    matchedUser.matchedWith = enteredId;
+                    document.getElementById('randomMatchedUserInput').value = matchedUser.name;
+                    document.getElementById('randomMatchedUserInput').textContent = JSON.stringify(matchedUser, 2);
+                    writeMatchedUsersToJSON([matchedUser]);
+                } else {
+                    alert('No users found with the entered time');
                 }
+            },
+            error: function (error) {
+                console.error(error);
             }
+        });
+    }
 
-            uniqueUsers.forEach(user => {
-                const option = new Option(user.name, user.name);
-                select.add(option);
-            });
+    function showUsersInDropdown() {
+        let enteredTime = document.getElementById('timeinput').value;
+        let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
 
-            writeMatchedUsersToJSON(uniqueUsers);
-        },
-        error: function (error) {
-            console.error(error);
-        }
-    });
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function (users) {
+                const select = document.getElementById('dropdownMenufortimeMatchedUsers');
+                select.innerHTML = '';
+
+                let uniqueUsers = [];
+                for (let i = 0; i < users.length; i++) {
+                    let current = users[i];
+                    let x = uniqueUsers.find(uniqueName => uniqueName.name === current.name);
+                    if (!x) {
+                        uniqueUsers.push(current);
+                    }
+                }
+
+                uniqueUsers.forEach(user => {
+                    const option = new Option(user.name, user.name);
+                    select.add(option);
+                });
+
+                writeMatchedUsersToJSON(uniqueUsers);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
 }

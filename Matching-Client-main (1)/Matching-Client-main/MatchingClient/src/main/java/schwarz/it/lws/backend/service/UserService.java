@@ -13,8 +13,10 @@ import schwarz.it.lws.backend.dto.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,6 +29,7 @@ import static schwarz.it.lws.backend.dto.User.GenerateRandomUser.generateRandomU
 public class UserService {
     String pathtoUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/users.JSON";
     String pathtomatchedUsers = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/matchedusers.JSON";
+    String pathtoRestaurants = "Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/restaurants.JSON";
 
     private final List<User> userlist;
 
@@ -100,6 +103,14 @@ public class UserService {
         }
     }
 
+
+    public void writerestaurants() {
+        File file = new File("Matching-Client-main (1)/Matching-Client-main/MatchingClient/src/main/java/schwarz/it/lws/json/restaurants.JSON");
+        ObjectMapper mapper = new ObjectMapper();
+       ArrayList<String> restaurants = new ArrayList<>();
+
+
+    }
     public List<User> processUserJsonData(String decodedData) {
         ObjectMapper objectMapper = new ObjectMapper();
         LocalTime enteredTime;

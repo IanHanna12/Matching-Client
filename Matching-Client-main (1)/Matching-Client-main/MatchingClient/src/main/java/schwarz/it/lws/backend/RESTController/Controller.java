@@ -8,7 +8,6 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +17,8 @@ import schwarz.it.lws.backend.dto.MatchWrapper;
 import schwarz.it.lws.backend.dto.User;
 import schwarz.it.lws.backend.service.UserService;
 
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-
 public class Controller {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(Controller.class);
 
@@ -63,11 +60,14 @@ public class Controller {
     public void writeMatchedUserstoJSON(@RequestBody List<MatchWrapper> matchedUsers) {
         userService.writematcheduserstoJSON(matchedUsers);
     }
+
     @GetMapping("/readMatchedUsers")
     public List<User> readMatchedUsersFromJson() {
         return userService.readmatchedusersfromjson();
     }
 
-
-
+    @PostMapping ("/writerestaurants")
+    public void writerestaurants () {
+        userService.writerestaurants();
+    }
 }
