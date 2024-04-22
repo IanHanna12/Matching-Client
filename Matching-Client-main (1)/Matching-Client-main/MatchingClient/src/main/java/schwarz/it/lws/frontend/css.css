@@ -37,16 +37,11 @@ h1 {
     font-size: large;
 }
 
-#restaurantdrop, #idinput, #idinputmatch, #timeinput, #selectmatcheduser {
+#restaurantdrop, #idinput, #idinputmatch, #timeinput {
     width: 315px;
     height: 50px;
     font-size: large;
     margin-bottom: 10px;
-}
-
-#selectmatcheduser {
-    margin-top: 30px;
-
 }
 
 button {
@@ -71,7 +66,6 @@ button {
     transition: background-color 0.3s ease;
 
 }
-
 
 #randomMatchedUserInput {
     width: 230px;
@@ -106,5 +100,4 @@ h2 {
 
     }
 }
-
 #matchUsers
