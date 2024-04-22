@@ -102,23 +102,19 @@ public class UserService {
         }
     }
 
-
-    public static List<Restaurant> writerestaurantstoJSON() {
+    public static void writeRestaurants(List<String> restaurants) {
         File file = new File(pathtoRestaurants);
         ObjectMapper mapper = new ObjectMapper();
-        if (file.exists()) {
-            try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, new ArrayList<Restaurant>() {
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            file.createNewFile();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, restaurants);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
     }
 
 
-    public List<Restaurant> readrestaurants() {
+    public static List<Restaurant> readrestaurants() {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(pathtoRestaurants);
         if (file.exists() && file.length() != 0) {

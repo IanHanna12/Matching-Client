@@ -160,4 +160,29 @@ function showUsersInDropdown() {
             console.error(error);
         }
     });
+
+//TODO: add persisting of dropdown to json via button or on load.
+    //on load
+    $(document).ready(function () {
+        const restaurants = [];
+        $('#restaurantdrop option').each(function () {
+            if (this.value !== "Restaurant wählen") {
+                restaurants.push(this.value);
+            }
+        });
+
+        $.ajax({
+            url: 'http://localhost:8080/writerestaurants',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({restaurants: restaurants}),
+            success: function (response) {
+                console.log('Restaurants saved:', response);
+            },
+            error: function (error) {
+                console.error('Error saving restaurants:', error);
+            }
+        });
+    })
 }
+
