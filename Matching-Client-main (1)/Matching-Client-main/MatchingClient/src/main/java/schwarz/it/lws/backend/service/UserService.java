@@ -100,11 +100,44 @@ public class UserService {
         }
     }
 
+    public List<User> processUserJsonData(String decodedData) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        LocalTime enteredTime;
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(decodedData);
+            String timeString = rootNode.get("time").asText();
+            enteredTime = LocalTime.parse(timeString);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            throw new RuntimeException("Error parsing JSON data", e);
+        }
+        LocalTime lowerBound = enteredTime.minusMinutes(20);
+        LocalTime upperBound = enteredTime.plusMinutes(20);
+
+        List<User> users = readusersfromJSON();
+
+        return users.stream().filter(user -> {
+            LocalTime userTime = LocalTime.parse(user.getTime());
+            return !userTime.isBefore(lowerBound) && !userTime.isAfter(upperBound);
+        }).collect(Collectors.toList());
+    }
+
+
+    public User findAndMatchUsersRandomly(String enteredTime, String enteredId) throws IOException {
+        List<User> filteredUsers = processUserJsonData(enteredTime);
+
+        if (filteredUsers.isEmpty()) {
+            return null;
+        }
+
+        int randIndex = ThreadLocalRandom.current().nextInt(filteredUsers.size());
+        return filteredUsers.get(randIndex);
+    }
 
     public List<User> readmatchedusersfromjson() {
         ObjectMapper mapper = new ObjectMapper();
-
-
         File file = new File(pathtomatchedUsers);
         List<User> matchedusers = new ArrayList<>();
         if (file.exists() && file.length() != 0) {
@@ -119,34 +152,6 @@ public class UserService {
         return matchedusers;
     }
 
-    public List<User> getandmatchusersRandomly(List<User> matcheduserlist) {
-        return getUsers(matcheduserlist);
-    }
-
-    public List<User> processUserJsonData(String decodedData) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode;
-        try {
-            jsonNode = objectMapper.readTree(decodedData);
-            String time = jsonNode.get("time").asText();
-            LocalTime enteredTime = LocalTime.parse(time);
-            LocalTime lowerBound = enteredTime.minusMinutes(20);
-            LocalTime upperBound = enteredTime.plusMinutes(20);
-
-
-            List<User> users = this.readusersfromJSON();
-            users = users.stream().filter(user -> {
-                LocalTime userTime = LocalTime.parse(user.getTime());
-                return userTime.isAfter(lowerBound) && userTime.isBefore(upperBound);
-            }).collect(Collectors.toList());
-
-            logger.info("Successfully read users from JSON and filtered by time: {}", time);
-            return users;
-        } catch (JsonProcessingException e) {
-            logger.error("Error while reading users from JSON and filtering by time", e);
-            return Collections.emptyList();
-        }
-    }
 
     public List<User> getandmatchusers(List<User> matcheduserlist) {
         return getUsers(matcheduserlist);

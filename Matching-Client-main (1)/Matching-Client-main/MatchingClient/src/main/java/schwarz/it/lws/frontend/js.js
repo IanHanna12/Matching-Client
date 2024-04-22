@@ -128,8 +128,6 @@ function findRandomMatchAjax() {
     });
 }
 
-var uniqueUsers = [];
-
 function showUsersInDropdown() {
     let enteredTime = document.getElementById('timeinput').value;
     let url = 'http://localhost:8080/readUsers?data=' + encodeURIComponent(JSON.stringify({time: enteredTime}));
@@ -142,7 +140,7 @@ function showUsersInDropdown() {
             const select = document.getElementById('dropdownMenufortimeMatchedUsers');
             select.innerHTML = '';
 
-            let uniqueUsers = []
+            let uniqueUsers = [];
             for (let i = 0; i < users.length; i++) {
                 let current = users[i];
                 let x = uniqueUsers.find(uniqueName => uniqueName.name === current.name);
@@ -155,8 +153,11 @@ function showUsersInDropdown() {
                 const option = new Option(user.name, user.name);
                 select.add(option);
             });
+
+            writeMatchedUsersToJSON(uniqueUsers);
+        },
+        error: function (error) {
+            console.error(error);
         }
-    })
+    });
 }
-
-
