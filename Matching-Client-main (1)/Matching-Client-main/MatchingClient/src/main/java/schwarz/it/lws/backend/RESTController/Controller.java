@@ -1,6 +1,8 @@
 package schwarz.it.lws.backend.RESTController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -67,12 +69,20 @@ public class Controller {
         return userService.readmatchedusersfromjson();
     }
 
-   @PostMapping ("/writerestaurants")
-    public List<Restaurant> writeRestaurantsToJSON() throws JsonProcessingException {
-       return UserService.writerestaurantstoJSON();
-   }
-    @GetMapping ("/readrestaurants")
+    @GetMapping("/readrestaurants")
     public List<Restaurant> readRestaurantsFromJson() {
-        return userService.readrestaurants();
+        return UserService.readrestaurants();
     }
-   }
+
+
+    @PostMapping("/writerestaurants")
+    public ResponseEntity<?> writeRestaurants(@RequestBody List<String> restaurants) {
+        try {
+            UserService.writeRestaurants(restaurants);
+            return ResponseEntity.ok("Restaurants saved successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving restaurants");
+        }
+    }
+}

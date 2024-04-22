@@ -32,7 +32,9 @@ public class User {
         String [] lastnames = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson"};
         String randomfirstname = firstnames[ThreadLocalRandom.current().nextInt(0, firstnames.length)];
         String randomlastname = lastnames[ThreadLocalRandom.current().nextInt(0, lastnames.length)];
-        return randomfirstname + " " + randomlastname;
+       String name = randomfirstname + " " + randomlastname;
+
+        return name;
     }
 
     @Data
