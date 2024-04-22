@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import schwarz.it.lws.backend.dto.MatchWrapper;
+import schwarz.it.lws.backend.dto.Restaurant;
 import schwarz.it.lws.backend.dto.User;
 import schwarz.it.lws.backend.service.UserService;
 
@@ -66,8 +67,12 @@ public class Controller {
         return userService.readmatchedusersfromjson();
     }
 
-    @PostMapping ("/writerestaurants")
-    public void writerestaurants () {
-        userService.writerestaurants();
+   @PostMapping ("/writerestaurants")
+    public List<Restaurant> writeRestaurantsToJSON() throws JsonProcessingException {
+       return UserService.writerestaurantstoJSON();
+   }
+    @GetMapping ("/readrestaurants")
+    public List<Restaurant> readRestaurantsFromJson() {
+        return userService.readrestaurants();
     }
-}
+   }
