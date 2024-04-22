@@ -137,7 +137,7 @@ function showUsersInDropdown() {
         url: url,
         dataType: 'json',
         success: function (users) {
-            const select = document.getElementById('dropdownMenufortimeMatchedUsers');
+            const select = document.getElementById('dropdownMatchedUsers');
             select.innerHTML = '';
 
             let uniqueUsers = [];
@@ -175,14 +175,16 @@ function showUsersInDropdown() {
             url: 'http://localhost:8080/writerestaurants',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({restaurants: restaurants}),
-            success: function (response) {
+            data: JSON.stringify(restaurants),
+            success: function(response) {
                 console.log('Restaurants saved:', response);
             },
-            error: function (error) {
+            error: function(error) {
                 console.error('Error saving restaurants:', error);
             }
         });
-    })
+
+
+        });
 }
 
