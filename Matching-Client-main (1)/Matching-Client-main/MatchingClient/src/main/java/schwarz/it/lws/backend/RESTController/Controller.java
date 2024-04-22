@@ -34,7 +34,7 @@ public class Controller {
     }
 
     @GetMapping("/findAndMatchUsersRandomly")
-    public User findAndMatchUsersRandomly(@RequestParam String enteredTime, @RequestParam String enteredId) throws IOException, IOException {
+    public User findAndMatchUsersRandomly(@RequestParam String enteredTime, @RequestParam String enteredId) throws IOException {
         return userService.findAndMatchUsersRandomly(enteredTime, enteredId);
     }
 
