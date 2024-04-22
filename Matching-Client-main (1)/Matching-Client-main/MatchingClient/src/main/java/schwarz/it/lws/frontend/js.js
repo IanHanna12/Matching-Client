@@ -1,26 +1,6 @@
-// Function to submit forms
-function submitForms() {
-    document.getElementById("id").submit();
-    document.getElementById("time").submit('');
-}
 
 // Function to validate fields
-function validateFields() {
-    let id = document.getElementById("idinput").value;
-    let time = document.getElementById("timeinput").value;
 
-    if (id === "") {
-        alert("ID must be filled out");
-        return false;
-    }
-
-    if (time === "") {
-        alert("Time must be filled out");
-        return false;
-    }
-
-    return true;
-}
 
 // Function to get users
 function getUsers() {
@@ -46,13 +26,13 @@ function writeMatchedUsersToJSON(users) {
         users = [users];
     }
 
-    let enteredId = document.getElementById('idinput').value;
+    let enteredName = document.getElementById('Nameinput').value;
 
     let dataForAjax = users.map(user => {
         return {
-            initiator: enteredId,
+            initiator: enteredName,
             matchedUser: {
-                id: user.id,
+
                 name: user.name,
                 time: user.time
             }
@@ -137,7 +117,7 @@ function showUsersInDropdown() {
         url: url,
         dataType: 'json',
         success: function (users) {
-            const select = document.getElementById('dropdownMenufortimeMatchedUsers');
+            const select = document.getElementById('dropdownMatchedUsers');
             select.innerHTML = '';
 
             let uniqueUsers = [];
@@ -154,7 +134,6 @@ function showUsersInDropdown() {
                 select.add(option);
             });
 
-            writeMatchedUsersToJSON(uniqueUsers);
         },
         error: function (error) {
             console.error(error);

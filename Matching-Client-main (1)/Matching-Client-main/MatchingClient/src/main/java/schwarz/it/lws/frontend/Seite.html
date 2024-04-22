@@ -52,11 +52,16 @@
         <div id="resultContainer" class="result">
             <h2>Matched User</h2>
             <form id="matchedUser" method="post">
-                <select id="dropdownMenufortimeMatchedUsers" name="matchedusers">
+                <select id="dropdownMatchedUsers" name="matchedusers">
                     <option disabled selected value="matcheduser">User XX</option>
                 </select>
             </form>
-            <input id="selectmatcheduser" placeholder="schreibe den User rein" >
+            <p> <input id="selectmatcheduser" placeholder="schreibe den User rein" >
+            </p>
+
+
+            <button id="selectUser" onclick="writeMatchedUsersToJSON()">wähle dein Lunchpartner</button>
+
         </div>
 
         <div id="randomResultContainer" class="result">
@@ -64,7 +69,6 @@
 
             <input type="text" id="randomMatchedUserInput" name="randomMatchedUser"
                    placeholder="dein zufälliger Lunchpartner">
-            <button id="selectUser" onclick="">match Users</button>
 
         </div>
 
