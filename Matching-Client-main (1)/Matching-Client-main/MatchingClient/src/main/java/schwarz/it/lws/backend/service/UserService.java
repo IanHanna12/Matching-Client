@@ -110,7 +110,7 @@ public class UserService {
             enteredTime = LocalTime.parse(timeString);
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the error appropriately. For example, you might want to throw a runtime exception or return an empty list
+
             throw new RuntimeException("Error parsing JSON data", e);
         }
         LocalTime lowerBound = enteredTime.minusMinutes(20);
@@ -119,7 +119,7 @@ public class UserService {
         List<User> users = readusersfromJSON();
 
         return users.stream().filter(user -> {
-            LocalTime userTime = LocalTime.parse(user.getTime()); // Assuming getTime() returns a string that can be parsed
+            LocalTime userTime = LocalTime.parse(user.getTime());
             return !userTime.isBefore(lowerBound) && !userTime.isAfter(upperBound);
         }).collect(Collectors.toList());
     }
@@ -133,8 +133,7 @@ public class UserService {
         }
 
         int randIndex = ThreadLocalRandom.current().nextInt(filteredUsers.size());
-        User matchedUser = filteredUsers.get(randIndex);
-        return matchedUser;
+        return filteredUsers.get(randIndex);
     }
 
     public List<User> readmatchedusersfromjson() {
